@@ -87,16 +87,16 @@ export const heroStats = [
 
 export const valueCards = [
   {
-    title: "Mision",
+    title: "Misión",
     description:
-      "Empoderar el talento local a traves de la educacion y contenido de desarrollo en Solana, rompiendo barreras de entrada al ecosistema global.",
+      "Empoderar el talento local a través de la educación y contenido de desarrollo en Solana, rompiendo barreras de entrada al ecosistema global.",
     icon: GraduationCap,
     tone: "primary",
   },
   {
-    title: "Vision",
+    title: "Visión",
     description:
-      "Posicionar a Venezuela como un centro lider para la innovacion en Solana desde LATAM, exportando soluciones disruptivas al mundo.",
+      "Posicionar a Venezuela como un centro líder para la innovación en Solana desde LATAM, exportando soluciones disruptivas al mundo.",
     icon: Rocket,
     tone: "tertiary",
   },
@@ -106,23 +106,23 @@ export const resourceCategories = [
   { label: "Todo", active: true },
   { label: "Spaces de X" },
   { label: "Videos" },
-  { label: "Articulos" },
+  { label: "Artículos" },
 ] satisfies ResourceCategory[]
 
 export const resources = [
   {
     title: "Construyendo en el Bear Market",
     description:
-      "Conversacion estrategica sobre desarrollo resiliente, producto y coordinacion comunitaria desde Venezuela.",
-    eyebrow: "Grabacion del Space",
+      "Conversación estratégica sobre desarrollo resiliente, producto y coordinación comunitaria desde Venezuela.",
+    eyebrow: "Grabación del Space",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuCVBDoffrSeGbHTIQX5vD9XUNDm9ncRK5qcTVzZ1luSRq1AjGSXkLwq2raGXUIIfCgTf3FCPckT_m0fhBMRIWRr5RsB3NlP5cLLyVFHZVB3KH1I-jupT7ieS4MUWR_rmg3SJJ0c8r2MdXBSX4mrV6WlgvlyITFdtkVmkTAg0Lxp0D-Oj4CC3v2z3pwbosZo--hm6MDjsWi6JOKwAEpC5gphwpeQj4JaOf7eeLL4-AZaoE2ET5I77s9QbYeRb7wYEUIemvUH8LfPGcP0",
-    imageAlt: "Ilustracion espacial para una conversacion comunitaria de Solana Venezuela.",
+    imageAlt: "Ilustración espacial para una conversación comunitaria de Solana Venezuela.",
     icon: Mic2,
     tone: "tertiary",
   },
   {
-    title: "Introduccion a Rust en Solana",
+    title: "Introducción a Rust en Solana",
     description:
       "Tutorial intensivo para desarrolladores hispanohablantes que quieren entrar a programas, tooling y despliegue.",
     eyebrow: "Ver video",
@@ -135,11 +135,11 @@ export const resources = [
   {
     title: "Ecosistema DeFi en Latam",
     description:
-      "Analisis editorial sobre la oportunidad de producto y la adopcion de infraestructura abierta en la region.",
-    eyebrow: "Articulo",
+      "Análisis editorial sobre la oportunidad de producto y la adopción de infraestructura abierta en la región.",
+    eyebrow: "Artículo",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuA6VcvBypz6ZR4NDZYKnieu-TLGJl67B7gYWp-QqJ4ELxH2AHHmZ4ASv0nLWKDDVpvdvUXcRMhfW4Eq7-hUwLfZTLnlfIGJzPu7W7Lwvf04OdMbqQkB0U3mOQjTT7AI8quhXsGxcbC16EyMIWeKc08vRTwo34yyfUiJjTOa7sWi80etfhgf97oQ5d7HhXMUGU8HlTLHeixHD1mZqSA1_5__OLgHvZorlQ8lmvdvPzZrq5GNpnTczT3sbMslA-VYizsxYQmPDNuEDzwc",
-    imageAlt: "Composicion editorial para un articulo sobre DeFi en Latinoamerica.",
+    imageAlt: "Composición editorial para un artículo sobre DeFi en Latinoamérica.",
     icon: FileText,
     tone: "primary",
   },
@@ -185,7 +185,7 @@ export const skillOptions = [
 ] as const
 
 export const footerPillars = [
-  { label: "Innovacion", icon: Star },
-  { label: "Colaboracion", icon: UsersRound },
+  { label: "Innovación", icon: Star },
+  { label: "Colaboración", icon: UsersRound },
   { label: "Confianza", icon: ShieldCheck },
 ] satisfies { label: string; icon: LucideIcon }[]

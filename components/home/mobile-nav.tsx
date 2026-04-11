@@ -32,12 +32,12 @@ export function MobileNav({ items }: MobileNavProps) {
             variant="ghost"
             size="icon-lg"
             className="size-11 rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10"
-            aria-label="Abrir navegacion principal"
+            aria-label="Abrir navegación principal"
           />
         }
       >
         <MenuIcon />
-        <span className="sr-only">Abrir navegacion principal</span>
+        <span className="sr-only">Abrir navegación principal</span>
       </SheetTrigger>
       <SheetContent
         side="right"
@@ -58,10 +58,10 @@ export function MobileNav({ items }: MobileNavProps) {
             Solana Venezuela <span aria-hidden="true">🇻🇪</span>
           </SheetTitle>
           <SheetDescription className="text-left text-sm text-[var(--muted-foreground)]">
-            Acceso rapido a los recursos y comunidad.
+            Acceso rápido a los recursos y comunidad.
           </SheetDescription>
         </SheetHeader>
-        <nav className="flex flex-col gap-2 p-4" aria-label="Navegacion movil">
+        <nav className="flex flex-col gap-2 p-4" aria-label="Navegación móvil">
           {items.map((item) => (
             <a
               key={item.href}
@@ -80,7 +80,7 @@ export function MobileNav({ items }: MobileNavProps) {
               "mt-4 h-12 rounded-full border-0 bg-[linear-gradient(135deg,var(--primary),var(--primary-strong))] px-5 text-[0.95rem] font-semibold text-[var(--primary-foreground)] shadow-[0_16px_50px_rgba(52,254,160,0.18)]"
             )}
           >
-            Unete a la comunidad
+            Únete a la comunidad
           </a>
         </nav>
       </SheetContent>

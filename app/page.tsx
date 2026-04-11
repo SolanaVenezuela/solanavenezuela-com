@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${homeTitle} | ${siteName}`,
     description: siteDescription,
-    images: ["/images/solanavenezuela-hero.jpg"],
+    images: ["/images/opengraph.png"],
   },
 }
 

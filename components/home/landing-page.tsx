@@ -308,7 +308,7 @@ function XIconButton({ href, label }: { href?: string; label: string }) {
     <button
       type="button"
       disabled
-      aria-label={`${label} proximamente`}
+      aria-label={`${label} próximamente`}
       className={cn(baseClass, "cursor-not-allowed opacity-65")}
     >
       <XBrandIcon />
@@ -450,7 +450,7 @@ export function LandingPage() {
               </div>
             </a>
 
-            <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegacion principal">
+            <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
               {navItems.map((item) => (
                 <a
                   key={item.href}
@@ -470,7 +470,7 @@ export function LandingPage() {
                   "hidden h-10 rounded-full border-0 bg-[linear-gradient(135deg,var(--primary),var(--primary-strong))] px-4 text-sm font-semibold text-[var(--primary-foreground)] shadow-[0_16px_40px_rgba(52,254,160,0.16)] lg:inline-flex"
                 )}
               >
-                Unete
+                Únete
               </a>
               <div className="lg:hidden">
                 <MobileNav items={navItems} />
@@ -529,7 +529,7 @@ export function LandingPage() {
 
               <Reveal delay={0.1}>
                 <p className="mt-6 max-w-2xl text-lg leading-8 text-[var(--muted-foreground)] sm:text-xl">
-                  Una comunidad de builders que escala el ecosistema de Solana desde Venezuela, con educacion, colaboracion y producto.
+                  Una comunidad de builders que escala el ecosistema de Solana desde Venezuela, con educación, colaboración y producto.
                 </p>
               </Reveal>
 
@@ -544,7 +544,7 @@ export function LandingPage() {
                       "h-12 rounded-full border-0 bg-[linear-gradient(135deg,var(--primary),var(--primary-strong))] px-5 text-[0.95rem] font-semibold text-[var(--primary-foreground)] shadow-[0_16px_48px_rgba(52,254,160,0.18)]"
                     )}
                   >
-                    Unete a la comunidad
+                    Únete a la comunidad
                   </a>
                   <a
                     href="#recursos"
@@ -598,7 +598,7 @@ export function LandingPage() {
                         En foco
                       </p>
                       <p className="mt-3 font-heading text-xl font-semibold tracking-[-0.04em] text-white">
-                        Educacion, comunidad y builder energy.
+                        Educación, comunidad y builder energy.
                       </p>
                     </div>
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
@@ -606,7 +606,7 @@ export function LandingPage() {
                         Latido
                       </p>
                       <p className="mt-3 text-sm leading-6 text-white/80">
-                        Contenido en español, networking tactico y rampa de entrada para crear sobre Solana.
+                        Contenido en español, networking táctico y rampa de entrada para crear sobre Solana.
                       </p>
                     </div>
                   </div>
@@ -646,12 +646,12 @@ export function LandingPage() {
                 <SectionHeading
                   headingId="vault-title"
                   eyebrow="Recursos"
-                  title="Documentacion, aprendizaje y comunidad en un solo lugar."
+                  title="Documentación, aprendizaje y comunidad en un solo lugar."
                   description="El archivo central del talento venezolano. Una colección de recursos diseñada para que la comunidad venezolana aprenda a navegar, construir y prosperar en Solana. De la teoría a la oportunidad, todo el ecosistema en una sola pieza"
                 />
               </Reveal>
               <Reveal delay={0.1}>
-                <div className="flex flex-wrap gap-2 lg:justify-end" aria-label="Categorias visuales de la boveda">
+                <div className="flex flex-wrap gap-2 lg:justify-end" aria-label="Categorías visuales de la bóveda">
                   {resourceCategories.map((category) => (
                     <Badge
                       key={category.label}
@@ -733,7 +733,7 @@ export function LandingPage() {
                 headingId="community-title"
                 eyebrow="Miembros"
                 title="Impulsado por la gente."
-                description="La fuerza creativa y técnica detrás del crecimiento de Solana en tierras venezolanas: desde primeras contribuciones hasta practicas avanzadas."
+                description="La fuerza creativa y técnica detrás del crecimiento de Solana en tierras venezolanas: desde primeras contribuciones hasta prácticas avanzadas."
                 centered
               />
             </Reveal>
@@ -748,10 +748,10 @@ export function LandingPage() {
                       <SparklesIcon className="size-7" />
                     </span>
                     <h3 className="mt-6 font-heading text-2xl font-semibold tracking-[-0.04em] text-white">
-                      Quieres aparecer aqui?
+                      ¿Quieres aparecer aquí?
                     </h3>
                     <p className="mt-4 text-sm leading-6 text-[var(--muted-foreground)]">
-                      Sumate a la legion de builders de Solana Venezuela y escala con nosotros.
+                      Súmate a la legión de builders de Solana Venezuela y escala con nosotros.
                     </p>
                     <a
                       href="#membership-form"
@@ -760,7 +760,7 @@ export function LandingPage() {
                         "mt-6 h-11 rounded-full border-0 bg-[linear-gradient(135deg,var(--primary),var(--primary-strong))] px-5 text-sm font-semibold text-[var(--primary-foreground)]"
                       )}
                     >
-                      Unete
+                      Únete
                     </a>
                   </CardContent>
                 </Card>
@@ -793,7 +793,7 @@ export function LandingPage() {
                     id="membership-title"
                     className="font-heading text-3xl font-semibold tracking-[-0.05em] text-white sm:text-4xl"
                   >
-                    Se miembro de Solana Venezuela
+                    Sé miembro de Solana Venezuela
                   </CardTitle>
                   <CardDescription className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[var(--muted-foreground)]">
                     Únete al capítulo venezolano de Solana. Aquí no solo participas: tienes voz para proponer iniciativas que impulsen el talento local. Deja tus datos y prepárate para ser parte de la comunidad que mueve Solana en Venezuela.
@@ -809,7 +809,7 @@ export function LandingPage() {
                         <Input
                           id="full-name"
                           name="full-name"
-                          placeholder="Juan Perez"
+                          placeholder="Juan Pérez"
                           className="form-line h-12 border-b-white/12 text-white placeholder:text-[var(--muted-foreground)]"
                         />
                       </div>
@@ -852,13 +852,13 @@ export function LandingPage() {
 
                     <div className="grid gap-2">
                       <label htmlFor="member-reason" className="text-sm font-medium text-white/80">
-                        Cuentanos por que quieres unirte
+                        Cuéntanos por qué quieres unirte
                       </label>
                       <Textarea
                         id="member-reason"
                         name="member-reason"
                         rows={5}
-                        placeholder="Describe tu motivacion y que puedes aportar a la comunidad..."
+                        placeholder="Describe tu motivación y qué puedes aportar a la comunidad..."
                         className="form-line min-h-36 border-b-white/12 text-white placeholder:text-[var(--muted-foreground)]"
                       />
                     </div>
