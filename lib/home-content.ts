@@ -1,16 +1,13 @@
 import type { LucideIcon } from "lucide-react"
 import {
   Blocks,
-  Code2,
   FileText,
   Globe2,
   GraduationCap,
   Mic2,
-  Palette,
   PlayCircle,
   Rocket,
   ShieldCheck,
-  TerminalSquare,
   UsersRound,
   Star
 } from "lucide-react"
@@ -177,52 +174,7 @@ export const founderMembers = [
 
 export const supporters = ["SOLANA FOUNDATION"] as const
 
-export const communityMembers = [
-  {
-    name: "Ana Morales",
-    role: "Developer",
-    summary:
-      "Entusiasta de DeFi y desarrolladora Rust en formacion con obsesion por la escalabilidad.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDbz_-Zvjatzsp2ljL5ssfeQYdczGpCa3IrV2XEYMiIavRfi3eHz6kmjwi6TqALQaGTcTBk3wAQwYgYsjan5lTnBX007n5sa4ItvuGkjNDzqULnuUqnaboJN6AtKeXY6pMiLLzlw8GMC9-nEG7Te_sQyZpFrXortCPMFiLAtBOzsypyHvF68YWFNARklvaJX9HWjmFg0NV8py2tx_6GsAYv6EZIc0j0APEj71rkwESSJmpdcRY7KZb1pPg4H6Ebhef9QiTZS_pl2QOj",
-    imageAlt: "Retrato de Ana Morales.",
-    icon: Code2,
-    tone: "primary",
-  },
-  {
-    name: "Luis Castillo",
-    role: "Creador",
-    summary:
-      "Diseñador visual explorando las fronteras del arte generativo, NFTs y narrativas Web3.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCN6dWiwNVanFmctzqVNX20mKLkaAPiAn3PQaT1R4-8W6M9sBiDshQF6KxSiFYk-eFZM9DDGxstHnumN5L8Vkp5i74C8ImWVSm5_mnpa98ay6ynsCqJqcMU8qBTJEGZt3Tyt--0TXeYfPKJOYTCIdDKRSh8bl82J-ySL-G9z_hqBgjqFkWAbMnuP2ZAt6_wZSYvjYkTA_wgvtoLUOVeK363L2rxdp49Wsf39J1kS1o_EAK-XLlhdUEDKdVnQG1R7JfIXcphrXK4Pcee",
-    imageAlt: "Retrato de Luis Castillo.",
-    icon: Palette,
-    tone: "secondary",
-  },
-  {
-    name: "Sofia Pena",
-    role: "Contribuidora",
-    summary:
-      "Lider comunitaria enfocada en adopcion masiva, onboarding y educacion Web3 en Caracas.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuA07F48zMYVOS7DkRRJw8ABp6eSjNwxV5AUYqIwOs3Nm6SlLauLvp507Om2-_4O9gsxN4oVLL8rP5lL397w_HYJEtRjEgtUs3NwuQJdJPitjKLowJ6-4m216EzhH_1g_2DJUfb2XCkHw1ySL7q9zzJonY-Sxs3FXLPS4kiwuEUQ91S8nvXn90LevcRzkpYPcKMWL9WwKMreVgUjPuT8ROzN3ratTV1i-PTywcKmJKxsHCjpictg84DWAGxxPSLwbVudIJDzMFmLoKEk",
-    imageAlt: "Retrato de Sofia Pena.",
-    icon: UsersRound,
-    tone: "tertiary",
-  },
-  {
-    name: "Ricardo Gil",
-    role: "Developer",
-    summary:
-      "Arquitecto backend migrando infraestructuras criticas hacia soluciones descentralizadas.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAXkPsSU2WajuhnsHUb6tXd9WVBqRLjOu0bs4fIRSnYs9OEEUV5ucdyMaPB9PvkH2hzInNoB9xwyS4aFQ0_QG7mlQDmi-Ju_9y_HMTYELKGXS8r-rAKn3QP-HJOi9-8JC09pb8PYCHPlG6RfliY821EVu7o2IhvXkKiO_rqu4t4t9Mvc7iWk5Ep9aS8rqfMIN6uhKKbZH4YytUgF42mH7O2oxcRSrlFO_2dvvXSqYO7AMfxam_41Vi3r2HAJbKxH1Dwuhj1FSu8rfVA",
-    imageAlt: "Retrato de Ricardo Gil.",
-    icon: TerminalSquare,
-    tone: "primary",
-  },
-] satisfies CommunityMember[]
+export const communityMembers: CommunityMember[] = []
 
 export const skillOptions = [
   "Desarrollador (Rust/Anchor)",
