@@ -3,11 +3,12 @@ import { SparklesIcon } from "lucide-react"
 
 import heroBackdrop from "@/public/images/solanavenezuela-hero.jpg"
 
+import { MemberRequestForm } from "@/components/home/member-request-form"
 import { MobileNav } from "@/components/home/mobile-nav"
 import { Float, Reveal } from "@/components/home/reveal"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -15,15 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
 import {
   communityMembers,
   footerPillars,
@@ -35,7 +27,6 @@ import {
   siteDescription,
   siteName,
   siteTagline,
-  skillOptions,
   valueCards,
   type AccentTone,
   type CommunityMember,
@@ -800,81 +791,7 @@ export function LandingPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="px-6 pb-8 sm:px-8 sm:pb-10">
-                  <form className="grid gap-6" aria-describedby="membership-note">
-                    <div className="grid gap-6 sm:grid-cols-2">
-                      <div className="grid gap-2">
-                        <label htmlFor="full-name" className="text-sm font-medium text-white/80">
-                          Nombre completo
-                        </label>
-                        <Input
-                          id="full-name"
-                          name="full-name"
-                          placeholder="Juan Pérez"
-                          className="form-line h-12 border-b-white/12 !px-4 text-white placeholder:text-[var(--muted-foreground)]"
-                        />
-                      </div>
-                      <div className="grid gap-2">
-                        <label htmlFor="twitter-handle" className="text-sm font-medium text-white/80">
-                          Usuario de X
-                        </label>
-                        <Input
-                          id="twitter-handle"
-                          name="twitter-handle"
-                          placeholder="@tuusuario"
-                          className="form-line h-12 border-b-white/12 !px-4 text-white placeholder:text-[var(--muted-foreground)]"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid gap-2">
-                      <label id="skill-label" className="text-sm font-medium text-white/80">
-                        Habilidad principal
-                      </label>
-                      <Select defaultValue={skillOptions[0]}>
-                        <SelectTrigger
-                          aria-labelledby="skill-label"
-                          className="form-line h-12 w-full rounded-none border-b-white/12 bg-transparent !px-4 text-white"
-                        >
-                          <SelectValue placeholder="Selecciona una habilidad" />
-                        </SelectTrigger>
-                        <SelectContent
-                          align="start"
-                          className="border border-white/10 bg-[var(--surface-high)] text-white"
-                        >
-                          {skillOptions.map((option) => (
-                            <SelectItem key={option} value={option} className="focus:bg-white/5 focus:text-white">
-                              {option}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="grid gap-2">
-                      <label htmlFor="member-reason" className="text-sm font-medium text-white/80">
-                        Cuéntanos por qué quieres unirte
-                      </label>
-                      <Textarea
-                        id="member-reason"
-                        name="member-reason"
-                        rows={5}
-                        placeholder="Describe tu motivación y qué puedes aportar a la comunidad..."
-                        className="form-line min-h-36 border-b-white/12 !px-4 text-white placeholder:text-[var(--muted-foreground)]"
-                      />
-                    </div>
-
-                    <p id="membership-note" className="text-sm leading-6 text-[var(--muted-foreground)]">
-                      Tras recibir tu solicitud, te daremos respuesta lo antes posible.
-                    </p>
-
-                    <Button
-                      type="button"
-                      size="lg"
-                      className="h-12 rounded-full border-0 bg-[linear-gradient(135deg,#19fb9b_0%,#43b4ca_48%,#9945ff_100%)] text-[#050816] shadow-[0_18px_50px_rgba(67,180,202,0.22)] hover:brightness-105"
-                    >
-                      Enviar solicitud
-                    </Button>
-                  </form>
+                  <MemberRequestForm />
                 </CardContent>
               </Card>
             </Reveal>
