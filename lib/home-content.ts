@@ -1,7 +1,6 @@
 import type { LucideIcon } from "lucide-react"
 import {
   Blocks,
-  BookOpenText,
   Code2,
   FileText,
   Globe2,

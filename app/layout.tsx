@@ -51,10 +51,10 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: "/images/solanavenezuela-hero.jpg",
+        url: "/images/opengraph.png",
         width: 2048,
         height: 949,
-        alt: "Ilustracion editorial de Solana Venezuela.",
+        alt: "Conectando el Talento Venezolano con Solana",
       },
     ],
   },
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteName,
     description: siteDescription,
-    images: ["/images/solanavenezuela-hero.jpg"],
+    images: ["/images/opengraph.png"],
   },
 };
 
