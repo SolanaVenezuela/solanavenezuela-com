@@ -15,7 +15,7 @@ import {
 export const siteName = "Solana Venezuela"
 export const siteTagline = "Conectando el Talento Venezolano con Solana."
 export const siteDescription =
-  "Comunidad de constructores, desarrolladores y creadores que impulsa el ecosistema Solana desde Venezuela con formación, recursos y colaboración." 
+  "Una comunidad de builders que escala el ecosistema de Solana desde Venezuela, con educación, colaboración y producto." 
 
 export type AccentTone = "primary" | "secondary" | "tertiary"
 
