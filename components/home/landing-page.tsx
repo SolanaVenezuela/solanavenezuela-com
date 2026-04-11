@@ -589,7 +589,7 @@ export function LandingPage() {
                         En foco
                       </p>
                       <p className="mt-3 font-heading text-xl font-semibold tracking-[-0.04em] text-white">
-                        Educación, comunidad y builder energy.
+                        Educación, comunidad y energía que construye.
                       </p>
                     </div>
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
@@ -597,7 +597,7 @@ export function LandingPage() {
                         Latido
                       </p>
                       <p className="mt-3 text-sm leading-6 text-white/80">
-                        Contenido en español, networking táctico y rampa de entrada para crear sobre Solana.
+                        Contenido y recursos en español, red de conexiones tácticas y rampa de entrada para crear y construir sobre Solana.
                       </p>
                     </div>
                   </div>
