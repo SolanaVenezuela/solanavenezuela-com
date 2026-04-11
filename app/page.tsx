@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { LandingPage } from "@/components/home/landing-page"
 import { siteDescription, siteName } from "@/lib/home-content"
 
-const homeTitle = "El Futuro de Web3 se construye en Venezuela"
+const homeTitle = "Conectando el Talento Venezolano con Solana"
 
 export const metadata: Metadata = {
   title: homeTitle,
@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     url: "/",
     images: [
       {
-        url: "/images/solanavenezuela-hero.jpg",
+        url: "/images/opengraph.png",
         width: 2048,
         height: 949,
-        alt: "Ilustracion editorial de Solana Venezuela con el ecosistema Solana sobre paisaje venezolano.",
+        alt: "Conectando el Talento Venezolano con Solana",
       },
     ],
   },
