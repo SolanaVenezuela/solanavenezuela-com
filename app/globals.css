@@ -214,8 +214,8 @@
     border-bottom-color: rgba(255, 255, 255, 0.12);
     border-radius: 0;
     background: transparent;
-    padding-right: 0;
-    padding-left: 0;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
     box-shadow: none;
   }
 

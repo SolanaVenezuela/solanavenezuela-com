@@ -810,7 +810,7 @@ export function LandingPage() {
                           id="full-name"
                           name="full-name"
                           placeholder="Juan Pérez"
-                          className="form-line h-12 border-b-white/12 text-white placeholder:text-[var(--muted-foreground)]"
+                          className="form-line h-12 border-b-white/12 !px-4 text-white placeholder:text-[var(--muted-foreground)]"
                         />
                       </div>
                       <div className="grid gap-2">
@@ -821,7 +821,7 @@ export function LandingPage() {
                           id="twitter-handle"
                           name="twitter-handle"
                           placeholder="@tuusuario"
-                          className="form-line h-12 border-b-white/12 text-white placeholder:text-[var(--muted-foreground)]"
+                          className="form-line h-12 border-b-white/12 !px-4 text-white placeholder:text-[var(--muted-foreground)]"
                         />
                       </div>
                     </div>
@@ -833,7 +833,7 @@ export function LandingPage() {
                       <Select defaultValue={skillOptions[0]}>
                         <SelectTrigger
                           aria-labelledby="skill-label"
-                          className="form-line h-12 w-full rounded-none border-b-white/12 bg-transparent px-0 text-white"
+                          className="form-line h-12 w-full rounded-none border-b-white/12 bg-transparent !px-4 text-white"
                         >
                           <SelectValue placeholder="Selecciona una habilidad" />
                         </SelectTrigger>
@@ -859,7 +859,7 @@ export function LandingPage() {
                         name="member-reason"
                         rows={5}
                         placeholder="Describe tu motivación y qué puedes aportar a la comunidad..."
-                        className="form-line min-h-36 border-b-white/12 text-white placeholder:text-[var(--muted-foreground)]"
+                        className="form-line min-h-36 border-b-white/12 !px-4 text-white placeholder:text-[var(--muted-foreground)]"
                       />
                     </div>
 
