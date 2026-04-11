@@ -13,6 +13,7 @@ interface RevealProps {
   y?: number
   amount?: number
   once?: boolean
+  initiallyVisible?: boolean
 }
 
 interface FloatProps {
@@ -50,12 +51,16 @@ export function Reveal({
   y = 28,
   amount = 0.18,
   once = true,
+  initiallyVisible = false,
 }: RevealProps) {
   const prefersReducedMotion = useReducedMotion()
   const ref = React.useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { amount, once: false })
   const [hasCheckedViewport, setHasCheckedViewport] = React.useState(false)
-  const [isVisible, setIsVisible] = React.useState(false)
+  const [isVisible, setIsVisible] = React.useState(initiallyVisible)
+
+  const hiddenState = { opacity: 0, y }
+  const visibleState = { opacity: 1, y: 0 }
 
   React.useEffect(() => {
     const element = ref.current
@@ -64,9 +69,9 @@ export function Reveal({
       return
     }
 
-    setIsVisible(meetsViewportAmount(element, amount))
+    setIsVisible(initiallyVisible || meetsViewportAmount(element, amount))
     setHasCheckedViewport(true)
-  }, [amount])
+  }, [amount, initiallyVisible])
 
   React.useEffect(() => {
     if (!hasCheckedViewport) {
@@ -92,8 +97,8 @@ export function Reveal({
     <motion.div
       ref={ref}
       className={cn(className)}
-      initial={{ opacity: 0, y }}
-      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y }}
+      initial={initiallyVisible ? false : hiddenState}
+      animate={isVisible ? visibleState : hiddenState}
       transition={{ delay, duration, ease: easing }}
     >
       {children}

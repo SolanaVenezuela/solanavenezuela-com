@@ -154,7 +154,7 @@ function HeroStatCard({ stat, delay }: { stat: HeroStat; delay: number }) {
   const Icon = stat.icon
 
   return (
-    <Reveal delay={delay}>
+    <Reveal delay={delay} initiallyVisible>
       <div className="glass-panel rounded-[1.5rem] border border-white/10 p-4 h-full">
         <div className="flex items-start justify-between gap-3">
           <span
@@ -496,7 +496,7 @@ export function LandingPage() {
 
           <div className="relative mx-auto grid w-full max-w-7xl gap-14 px-4 pb-20 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-10 xl:gap-16">
             <div className="relative z-10 flex flex-col justify-center">
-              <Reveal>
+              <Reveal initiallyVisible>
                 <Badge
                   variant="outline"
                   className="mb-6 w-fit rounded-full border-white/10 bg-white/5 px-4 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-[var(--primary)]"
@@ -506,7 +506,7 @@ export function LandingPage() {
                 </Badge>
               </Reveal>
 
-              <Reveal delay={0.05}>
+              <Reveal delay={0.05} initiallyVisible>
                 <h1
                   id="hero-title"
                   className="max-w-3xl font-heading text-5xl leading-[1.02] font-semibold tracking-[-0.08em] text-white sm:text-6xl lg:text-7xl xl:text-[5.3rem]"
@@ -518,13 +518,13 @@ export function LandingPage() {
                 </h1>
               </Reveal>
 
-              <Reveal delay={0.1}>
+              <Reveal delay={0.1} initiallyVisible>
                 <p className="mt-6 max-w-2xl text-lg leading-8 text-[var(--muted-foreground)] sm:text-xl">
                   Una comunidad de builders que escala el ecosistema de Solana desde Venezuela, con educación, colaboración y producto.
                 </p>
               </Reveal>
 
-              <Reveal delay={0.16}>
+              <Reveal delay={0.16} initiallyVisible>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <a
                     href="https://linktr.ee/solanavenezuela"
@@ -570,7 +570,7 @@ export function LandingPage() {
                 duration={7.2}
               />
 
-              <Reveal delay={0.14} className="relative w-full max-w-[30rem] lg:max-w-[28rem] xl:max-w-[31rem]">
+              <Reveal delay={0.14} initiallyVisible className="relative w-full max-w-[30rem] lg:max-w-[28rem] xl:max-w-[31rem]">
                 <div className="absolute -inset-6 rounded-[2.25rem] bg-[radial-gradient(circle_at_center,rgba(52,254,160,0.16),rgba(185,132,255,0.12),transparent_72%)] blur-3xl" />
                 <div className="glass-panel relative overflow-hidden rounded-[2.25rem] border border-white/10 p-4 sm:p-5">
                   <div className="relative aspect-[0.94] overflow-hidden rounded-[1.75rem] border border-white/10 bg-black/40">
