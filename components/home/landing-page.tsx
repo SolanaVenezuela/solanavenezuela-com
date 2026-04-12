@@ -6,6 +6,7 @@ import heroBackdrop from "@/public/images/solanavenezuela-hero.jpg"
 import { MemberRequestForm } from "@/components/home/member-request-form"
 import { MobileNav } from "@/components/home/mobile-nav"
 import { Float, Reveal } from "@/components/home/reveal"
+import { ResourcesSection } from "@/components/home/resources-section"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
@@ -32,7 +33,6 @@ import {
   type CommunityMember,
   type FounderMember,
   type HeroStat,
-  type ResourceCard,
   type ValueCard,
 } from "@/lib/home-content"
 import { cn } from "@/lib/utils"
@@ -206,126 +206,6 @@ function ValuePanel({ value, delay }: { value: ValueCard; delay: number }) {
         </CardContent>
       </Card>
     </Reveal>
-  )
-}
-
-function ResourcePanel({ resource, delay }: { resource: ResourceCard; delay: number }) {
-  const accent = accentStyles[resource.tone]
-
-  return (
-    <Reveal delay={delay} className="h-full">
-      <a
-        href={resource.href}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={`${resource.ctaLabel}: ${resource.title}`}
-        className="group/card block h-full rounded-[1.75rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]"
-      >
-        <Card
-          className={cn(
-            "monolith-panel h-full rounded-[1.75rem] border border-white/8 py-0 text-white",
-            accent.card
-          )}
-        >
-          <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem] border-b border-white/8 bg-black/40">
-            <Image
-              src={resource.image}
-              alt={resource.imageAlt}
-              fill
-              sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 100vw"
-              className="object-cover transition-transform duration-700 group-hover/card:scale-[1.04]"
-            />
-            <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-3 p-4">
-              <Badge
-                variant="outline"
-                className={cn(
-                  "rounded-full px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.24em] backdrop-blur-md",
-                  accent.badge
-                )}
-              >
-                {resource.eyebrow}
-              </Badge>
-            </div>
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
-          </div>
-          <CardContent className="px-5 pb-5 pt-5 sm:px-6 sm:pb-6">
-            {getResourceLinkIcon(resource.href, resource.icon, accent.icon)}
-            <CardTitle className="font-heading text-[1.35rem] leading-tight font-semibold tracking-[-0.04em] text-white">
-              {resource.title}
-            </CardTitle>
-            <CardDescription className="mt-3 text-sm leading-6 text-[var(--muted-foreground)]">
-              {resource.description}
-            </CardDescription>
-            <span className={cn("mt-5 inline-flex text-sm font-semibold", accent.icon)}>
-              {resource.ctaLabel}
-            </span>
-          </CardContent>
-        </Card>
-      </a>
-    </Reveal>
-  )
-}
-
-function getResourceLinkIcon(
-  href: string,
-  FallbackIcon: ResourceCard["icon"],
-  fallbackClassName: string
-) {
-  const baseClassName = "mb-4 inline-flex size-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5"
-
-  if (isYouTubeLink(href)) {
-    return (
-      <span className={cn(baseClassName, "text-[#ff0033]")}>
-        <YouTubeBrandIcon />
-      </span>
-    )
-  }
-
-  if (isXLink(href)) {
-    return (
-      <span className={cn(baseClassName, "text-white")}>
-        <XBrandIcon />
-      </span>
-    )
-  }
-
-  return (
-    <span className={cn(baseClassName, fallbackClassName)}>
-      <FallbackIcon className="size-4" />
-    </span>
-  )
-}
-
-function isYouTubeLink(href: string) {
-  const hostname = getHostname(href)
-
-  return hostname === "youtube.com" || hostname === "m.youtube.com" || hostname === "youtu.be"
-}
-
-function isXLink(href: string) {
-  const hostname = getHostname(href)
-
-  return hostname === "x.com" || hostname === "twitter.com"
-}
-
-function getHostname(href: string) {
-  try {
-    return new URL(href).hostname.replace(/^www\./, "")
-  } catch {
-    return ""
-  }
-}
-
-function YouTubeBrandIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className={cn("size-4 fill-current", className)}
-      focusable="false"
-      aria-hidden="true"
-    >
-      <path d="M23.498 6.186a2.974 2.974 0 0 0-2.09-2.105C19.566 3.5 12 3.5 12 3.5s-7.565 0-9.408.581A2.974 2.974 0 0 0 .502 6.186 31.24 31.24 0 0 0 0 12a31.24 31.24 0 0 0 .502 5.814 2.974 2.974 0 0 0 2.09 2.105C4.435 20.5 12 20.5 12 20.5s7.566 0 9.408-.581a2.974 2.974 0 0 0 2.09-2.105A31.24 31.24 0 0 0 24 12a31.24 31.24 0 0 0-.502-5.814ZM9.6 15.568V8.432L15.818 12 9.6 15.568Z" />
-    </svg>
   )
 }
 
@@ -698,7 +578,7 @@ export function LandingPage() {
         >
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_80%_0%,rgba(185,132,255,0.12),transparent_24%),radial-gradient(circle_at_10%_0%,rgba(52,254,160,0.08),transparent_26%)]" />
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <ResourcesSection categories={resourceCategories} resources={resources}>
               <Reveal className="flex-1">
                 <SectionHeading
                   headingId="vault-title"
@@ -707,30 +587,7 @@ export function LandingPage() {
                   description="El archivo central del talento venezolano. Una colección de recursos diseñada para que la comunidad venezolana aprenda a navegar, construir y prosperar en Solana. De la teoría a la oportunidad, todo el ecosistema en una sola pieza"
                 />
               </Reveal>
-              <Reveal delay={0.1}>
-                <div className="flex flex-wrap gap-2 lg:justify-end" aria-label="Categorías visuales de la bóveda">
-                  {resourceCategories.map((category) => (
-                    <Badge
-                      key={category.label}
-                      variant="outline"
-                      className={cn(
-                        "rounded-full px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em]",
-                        category.active
-                          ? "border-[#34fea036] bg-[#34fea01d] text-[var(--primary)]"
-                          : "border-white/10 bg-white/[0.03] text-white/72"
-                      )}
-                    >
-                      {category.label}
-                    </Badge>
-                  ))}
-                </div>
-              </Reveal>
-            </div>
-            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {resources.map((resource, index) => (
-                <ResourcePanel key={resource.title} resource={resource} delay={index * 0.08} />
-              ))}
-            </div>
+            </ResourcesSection>
           </div>
         </section>
 

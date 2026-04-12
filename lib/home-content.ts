@@ -1,11 +1,8 @@
 import type { LucideIcon } from "lucide-react"
 import {
   Blocks,
-  FileText,
   Globe2,
   GraduationCap,
-  Mic2,
-  PlayCircle,
   Rocket,
   ShieldCheck,
   UsersRound,
@@ -19,6 +16,7 @@ export const siteDescription =
 
 export type AccentTone = "primary" | "secondary" | "tertiary"
 export type ResourceKind = "video" | "x-space" | "article" | "more"
+export type ResourceFilter = "all" | ResourceKind
 
 export interface NavItem {
   label: string
@@ -41,7 +39,7 @@ export interface ValueCard {
 
 export interface ResourceCategory {
   label: string
-  active?: boolean
+  value: ResourceFilter
 }
 
 export interface ResourceCard {
@@ -53,7 +51,6 @@ export interface ResourceCard {
   href: string
   ctaLabel: string
   kind: ResourceKind
-  icon: LucideIcon
   tone: AccentTone
 }
 
@@ -107,10 +104,10 @@ export const valueCards = [
 ] satisfies ValueCard[]
 
 export const resourceCategories = [
-  { label: "Todo", active: true },
-  { label: "Spaces de X" },
-  { label: "Videos" },
-  { label: "Artículos" },
+  { label: "Todo", value: "all" },
+  { label: "Spaces de X", value: "x-space" },
+  { label: "Videos", value: "video" },
+  { label: "Artículos", value: "article" },
 ] satisfies ResourceCategory[]
 
 export const resources = [
@@ -124,7 +121,6 @@ export const resources = [
     href: "https://www.youtube.com/watch?v=xnGBXJIQgjA&t=936s",
     ctaLabel: "Ver en YouTube",
     kind: "video",
-    icon: Mic2,
     tone: "tertiary",
   },
   {
@@ -137,7 +133,6 @@ export const resources = [
     href: "https://www.youtube.com/watch?v=vlfozBxL57A",
     ctaLabel: "Ver en YouTube",
     kind: "video",
-    icon: PlayCircle,
     tone: "secondary",
   },
   {
@@ -150,7 +145,6 @@ export const resources = [
     href: "https://www.youtube.com/watch?v=j4iOl-12-TM",
     ctaLabel: "Ver en YouTube",
     kind: "video",
-    icon: FileText,
     tone: "primary",
   },
 ] satisfies ResourceCard[]
