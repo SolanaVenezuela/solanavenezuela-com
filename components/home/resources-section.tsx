@@ -152,7 +152,7 @@ export function ResourcesSection({ categories, resources, children }: ResourcesS
                     Próximamente en {activeCategory?.label ?? "esta categoría"}
                   </CardTitle>
                   <CardDescription className="mt-3 max-w-2xl leading-7 text-muted-foreground">
-                    Todavía no hemos publicado recursos en esta categoría. Spaces de X y más contenidos muy pronto.
+                    Todavía no hemos publicado recursos en esta categoría. Más contenidos muy pronto.
                   </CardDescription>
                 </CardContent>
               </Card>
