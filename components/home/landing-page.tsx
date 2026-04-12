@@ -211,55 +211,121 @@ function ValuePanel({ value, delay }: { value: ValueCard; delay: number }) {
 
 function ResourcePanel({ resource, delay }: { resource: ResourceCard; delay: number }) {
   const accent = accentStyles[resource.tone]
-  const Icon = resource.icon
 
   return (
-    <Reveal delay={delay} className="group/card">
-      <Card
-        className={cn(
-          "monolith-panel h-full rounded-[1.75rem] border border-white/8 py-0 text-white",
-          accent.card
-        )}
+    <Reveal delay={delay} className="h-full">
+      <a
+        href={resource.href}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`${resource.ctaLabel}: ${resource.title}`}
+        className="group/card block h-full rounded-[1.75rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]"
       >
-        <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem] border-b border-white/8 bg-black/40">
-          <Image
-            src={resource.image}
-            alt={resource.imageAlt}
-            fill
-            sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 100vw"
-            className="object-cover transition-transform duration-700 group-hover/card:scale-[1.04]"
-          />
-          <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-3 p-4">
-            <Badge
-              variant="outline"
-              className={cn(
-                "rounded-full px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.24em] backdrop-blur-md",
-                accent.badge
-              )}
-            >
-              {resource.eyebrow}
-            </Badge>
+        <Card
+          className={cn(
+            "monolith-panel h-full rounded-[1.75rem] border border-white/8 py-0 text-white",
+            accent.card
+          )}
+        >
+          <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem] border-b border-white/8 bg-black/40">
+            <Image
+              src={resource.image}
+              alt={resource.imageAlt}
+              fill
+              sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 100vw"
+              className="object-cover transition-transform duration-700 group-hover/card:scale-[1.04]"
+            />
+            <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-3 p-4">
+              <Badge
+                variant="outline"
+                className={cn(
+                  "rounded-full px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.24em] backdrop-blur-md",
+                  accent.badge
+                )}
+              >
+                {resource.eyebrow}
+              </Badge>
+            </div>
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
           </div>
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
-        </div>
-        <CardContent className="px-5 pb-5 pt-5 sm:px-6 sm:pb-6">
-          <span
-            className={cn(
-              "mb-4 inline-flex size-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5",
-              accent.icon
-            )}
-          >
-            <Icon className="size-4" />
-          </span>
-          <CardTitle className="font-heading text-[1.35rem] leading-tight font-semibold tracking-[-0.04em] text-white">
-            {resource.title}
-          </CardTitle>
-          <CardDescription className="mt-3 text-sm leading-6 text-[var(--muted-foreground)]">
-            {resource.description}
-          </CardDescription>
-        </CardContent>
-      </Card>
+          <CardContent className="px-5 pb-5 pt-5 sm:px-6 sm:pb-6">
+            {getResourceLinkIcon(resource.href, resource.icon, accent.icon)}
+            <CardTitle className="font-heading text-[1.35rem] leading-tight font-semibold tracking-[-0.04em] text-white">
+              {resource.title}
+            </CardTitle>
+            <CardDescription className="mt-3 text-sm leading-6 text-[var(--muted-foreground)]">
+              {resource.description}
+            </CardDescription>
+            <span className={cn("mt-5 inline-flex text-sm font-semibold", accent.icon)}>
+              {resource.ctaLabel}
+            </span>
+          </CardContent>
+        </Card>
+      </a>
     </Reveal>
+  )
+}
+
+function getResourceLinkIcon(
+  href: string,
+  FallbackIcon: ResourceCard["icon"],
+  fallbackClassName: string
+) {
+  const baseClassName = "mb-4 inline-flex size-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5"
+
+  if (isYouTubeLink(href)) {
+    return (
+      <span className={cn(baseClassName, "text-[#ff0033]")}>
+        <YouTubeBrandIcon />
+      </span>
+    )
+  }
+
+  if (isXLink(href)) {
+    return (
+      <span className={cn(baseClassName, "text-white")}>
+        <XBrandIcon />
+      </span>
+    )
+  }
+
+  return (
+    <span className={cn(baseClassName, fallbackClassName)}>
+      <FallbackIcon className="size-4" />
+    </span>
+  )
+}
+
+function isYouTubeLink(href: string) {
+  const hostname = getHostname(href)
+
+  return hostname === "youtube.com" || hostname === "m.youtube.com" || hostname === "youtu.be"
+}
+
+function isXLink(href: string) {
+  const hostname = getHostname(href)
+
+  return hostname === "x.com" || hostname === "twitter.com"
+}
+
+function getHostname(href: string) {
+  try {
+    return new URL(href).hostname.replace(/^www\./, "")
+  } catch {
+    return ""
+  }
+}
+
+function YouTubeBrandIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={cn("size-4 fill-current", className)}
+      focusable="false"
+      aria-hidden="true"
+    >
+      <path d="M23.498 6.186a2.974 2.974 0 0 0-2.09-2.105C19.566 3.5 12 3.5 12 3.5s-7.565 0-9.408.581A2.974 2.974 0 0 0 .502 6.186 31.24 31.24 0 0 0 0 12a31.24 31.24 0 0 0 .502 5.814 2.974 2.974 0 0 0 2.09 2.105C4.435 20.5 12 20.5 12 20.5s7.566 0 9.408-.581a2.974 2.974 0 0 0 2.09-2.105A31.24 31.24 0 0 0 24 12a31.24 31.24 0 0 0-.502-5.814ZM9.6 15.568V8.432L15.818 12 9.6 15.568Z" />
+    </svg>
   )
 }
 

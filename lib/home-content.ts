@@ -18,6 +18,7 @@ export const siteDescription =
   "Una comunidad de builders que escala el ecosistema de Solana desde Venezuela, con educación, colaboración y producto." 
 
 export type AccentTone = "primary" | "secondary" | "tertiary"
+export type ResourceKind = "video" | "x-space" | "article" | "more"
 
 export interface NavItem {
   label: string
@@ -49,6 +50,9 @@ export interface ResourceCard {
   eyebrow: string
   image: string
   imageAlt: string
+  href: string
+  ctaLabel: string
+  kind: ResourceKind
   icon: LucideIcon
   tone: AccentTone
 }
@@ -111,35 +115,41 @@ export const resourceCategories = [
 
 export const resources = [
   {
-    title: "Construyendo en el Bear Market",
+    title: "Colosseum Live Session EP1",
     description:
-      "Conversación estratégica sobre desarrollo resiliente, producto y coordinación comunitaria desde Venezuela.",
-    eyebrow: "Grabación del Space",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCVBDoffrSeGbHTIQX5vD9XUNDm9ncRK5qcTVzZ1luSRq1AjGSXkLwq2raGXUIIfCgTf3FCPckT_m0fhBMRIWRr5RsB3NlP5cLLyVFHZVB3KH1I-jupT7ieS4MUWR_rmg3SJJ0c8r2MdXBSX4mrV6WlgvlyITFdtkVmkTAg0Lxp0D-Oj4CC3v2z3pwbosZo--hm6MDjsWi6JOKwAEpC5gphwpeQj4JaOf7eeLL4-AZaoE2ET5I77s9QbYeRb7wYEUIemvUH8LfPGcP0",
-    imageAlt: "Ilustración espacial para una conversación comunitaria de Solana Venezuela.",
+      "Sesión en video para seguir de cerca ideas, demos y conversaciones alrededor del ecosistema builder en Solana.",
+    eyebrow: "YouTube",
+    image: "https://i.ytimg.com/vi/xnGBXJIQgjA/hqdefault.jpg",
+    imageAlt: "Miniatura del video Colosseum Live Session EP1 en YouTube.",
+    href: "https://www.youtube.com/watch?v=xnGBXJIQgjA&t=936s",
+    ctaLabel: "Ver en YouTube",
+    kind: "video",
     icon: Mic2,
     tone: "tertiary",
   },
   {
-    title: "Introducción a Rust en Solana",
+    title: "playing @gableguardians on my @Solanamobilechannel",
     description:
-      "Tutorial intensivo para desarrolladores hispanohablantes que quieren entrar a programas, tooling y despliegue.",
-    eyebrow: "Ver video",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuD93AKR6oumo7HEQKkZo0e17p78N41vOER2Wv6kvzVis4MFnUNbdZv6EdalawcskQ29mXzuW_-gVwQGzY8SPSTgY0ufGArJfrIycbiscbpnmdoCBAiRpMuXkY8TUAoNQWg9R4Dq_7MOMN0YgL3s1Kmqi8zJNT4s_jAXmVfjjhEF7pmy1eF25ohcTBvBnk8S2X5G06kWaExg0htwVidkb6OvhQaG3g2qgJb4udzr_LzrptC8fExUx2BDFKj3x1wWhjdfM48A3fs7a2YN",
-    imageAlt: "Retrato digital para un video educativo sobre Rust en Solana.",
+      "Gameplay y exploración de una experiencia construida sobre Solana Mobile, útil para seguir casos reales de producto.",
+    eyebrow: "YouTube",
+    image: "https://i.ytimg.com/vi/vlfozBxL57A/hqdefault.jpg",
+    imageAlt: "Miniatura del video playing @gableguardians on my @Solanamobilechannel en YouTube.",
+    href: "https://www.youtube.com/watch?v=vlfozBxL57A",
+    ctaLabel: "Ver en YouTube",
+    kind: "video",
     icon: PlayCircle,
     tone: "secondary",
   },
   {
-    title: "Ecosistema DeFi en Latam",
+    title: "Gable Guardians - Solana Mobile Hackathon (Monolith)",
     description:
-      "Análisis editorial sobre la oportunidad de producto y la adopción de infraestructura abierta en la región.",
-    eyebrow: "Artículo",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuA6VcvBypz6ZR4NDZYKnieu-TLGJl67B7gYWp-QqJ4ELxH2AHHmZ4ASv0nLWKDDVpvdvUXcRMhfW4Eq7-hUwLfZTLnlfIGJzPu7W7Lwvf04OdMbqQkB0U3mOQjTT7AI8quhXsGxcbC16EyMIWeKc08vRTwo34yyfUiJjTOa7sWi80etfhgf97oQ5d7HhXMUGU8HlTLHeixHD1mZqSA1_5__OLgHvZorlQ8lmvdvPzZrq5GNpnTczT3sbMslA-VYizsxYQmPDNuEDzwc",
-    imageAlt: "Composición editorial para un artículo sobre DeFi en Latinoamérica.",
+      "Demo y contexto de una propuesta para Solana Mobile Hackathon, enfocada en producto, ejecución y experiencia.",
+    eyebrow: "YouTube",
+    image: "https://i.ytimg.com/vi/j4iOl-12-TM/hqdefault.jpg",
+    imageAlt: "Miniatura del video Gable Guardians - Solana Mobile Hackathon (Monolith) en YouTube.",
+    href: "https://www.youtube.com/watch?v=j4iOl-12-TM",
+    ctaLabel: "Ver en YouTube",
+    kind: "video",
     icon: FileText,
     tone: "primary",
   },
