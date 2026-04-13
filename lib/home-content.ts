@@ -112,6 +112,18 @@ export const resourceCategories = [
 
 export const resources = [
   {
+    title: "Frontier Hackathon - Colosseum",
+    description:
+      "Guía publicada en X por Solana Venezuela sobre el Frontier Hackathon de Colosseum, con contexto del programa y recomendaciones para builders que quieran competir mejor.",
+    eyebrow: "X Article",
+    image: "/images/content/frontier-hackathon.png",
+    imageAlt: "Visual editorial de Solana Venezuela para acompañar el artículo sobre el Frontier Hackathon.",
+    href: "https://x.com/SolanaVenezuela/status/2043711969287401553?s=20",
+    ctaLabel: "Leer artículo",
+    kind: "article",
+    tone: "primary",
+  },
+  {
     title: "Colosseum Live Session EP1",
     description:
       "Sesión en video para seguir de cerca ideas, demos y conversaciones alrededor del ecosistema builder en Solana.",
