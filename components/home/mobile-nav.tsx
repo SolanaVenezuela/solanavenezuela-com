@@ -18,9 +18,10 @@ import type { NavItem } from "@/lib/home-content"
 
 interface MobileNavProps {
   items: readonly NavItem[]
+  joinHref: string
 }
 
-export function MobileNav({ items }: MobileNavProps) {
+export function MobileNav({ items, joinHref }: MobileNavProps) {
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -73,7 +74,9 @@ export function MobileNav({ items }: MobileNavProps) {
             </a>
           ))}
           <a
-            href="#membership-form"
+            href={joinHref}
+            target="_blank"
+            rel="noreferrer"
             onClick={() => setOpen(false)}
             className={cn(
               buttonVariants({ variant: "default", size: "lg" }),

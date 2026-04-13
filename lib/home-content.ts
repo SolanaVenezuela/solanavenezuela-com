@@ -123,30 +123,6 @@ export const resources = [
     kind: "video",
     tone: "tertiary",
   },
-  {
-    title: "playing @gableguardians on my @Solanamobilechannel",
-    description:
-      "Gameplay y exploración de una experiencia construida sobre Solana Mobile, útil para seguir casos reales de producto.",
-    eyebrow: "YouTube",
-    image: "https://i.ytimg.com/vi/vlfozBxL57A/hqdefault.jpg",
-    imageAlt: "Miniatura del video playing @gableguardians on my @Solanamobilechannel en YouTube.",
-    href: "https://www.youtube.com/watch?v=vlfozBxL57A",
-    ctaLabel: "Ver en YouTube",
-    kind: "video",
-    tone: "secondary",
-  },
-  {
-    title: "Gable Guardians - Solana Mobile Hackathon (Monolith)",
-    description:
-      "Demo y contexto de una propuesta para Solana Mobile Hackathon, enfocada en producto, ejecución y experiencia.",
-    eyebrow: "YouTube",
-    image: "https://i.ytimg.com/vi/j4iOl-12-TM/hqdefault.jpg",
-    imageAlt: "Miniatura del video Gable Guardians - Solana Mobile Hackathon (Monolith) en YouTube.",
-    href: "https://www.youtube.com/watch?v=j4iOl-12-TM",
-    ctaLabel: "Ver en YouTube",
-    kind: "video",
-    tone: "primary",
-  },
 ] satisfies ResourceCard[]
 
 export const founderMembers = [

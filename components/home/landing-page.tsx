@@ -3,7 +3,6 @@ import { SparklesIcon } from "lucide-react"
 
 import heroBackdrop from "@/public/images/solanavenezuela-hero.jpg"
 
-import { MemberRequestForm } from "@/components/home/member-request-form"
 import { MobileNav } from "@/components/home/mobile-nav"
 import { Float, Reveal } from "@/components/home/reveal"
 import { ResourcesSection } from "@/components/home/resources-section"
@@ -18,7 +17,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import {
-  communityMembers,
   footerPillars,
   founderMembers,
   heroStats,
@@ -30,7 +28,6 @@ import {
   siteTagline,
   valueCards,
   type AccentTone,
-  type CommunityMember,
   type FounderMember,
   type HeroStat,
   type ValueCard,
@@ -38,6 +35,8 @@ import {
 import { cn } from "@/lib/utils"
 
 const founderSolanaGradient = "from-[#19fb9b] via-[#43b4ca] to-[#9945ff]"
+const communityJoinUrl = "https://linktr.ee/solanavenezuela"
+const headerNavItems = navItems.filter((item) => item.href !== "#miembros")
 
 const accentStyles = {
   primary: {
@@ -295,57 +294,6 @@ function FounderPanel({
   )
 }
 
-function CommunityPanel({
-  member,
-  delay,
-}: {
-  member: CommunityMember
-  delay: number
-}) {
-  const accent = accentStyles[member.tone]
-
-  return (
-    <Reveal delay={delay} className="h-full">
-      <Card
-        className={cn(
-          "glass-panel h-full rounded-[1.75rem] border border-white/8 py-0 text-white",
-          accent.card
-        )}
-      >
-        <CardContent className="px-5 py-6 sm:px-6">
-          <div className="relative mx-auto flex w-fit justify-center">
-            <div className={cn("absolute -inset-1 rounded-full bg-gradient-to-br opacity-55 blur-md", accent.avatar)} />
-            <Avatar className="relative size-24 overflow-hidden border border-white/10 bg-[var(--surface-high)] after:hidden">
-              <AvatarImage src={member.image} alt={member.imageAlt} />
-              <AvatarFallback className="bg-[var(--surface-high)] text-lg text-white">
-                {member.name
-                  .split(" ")
-                  .map((part) => part[0])
-                  .join("")
-                  .slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-          </div>
-          <div className="mt-5 text-center">
-            <h3 className="font-heading text-2xl font-semibold tracking-[-0.04em] text-white">
-              {member.name}
-            </h3>
-            <p className={cn("mt-2 text-xs uppercase tracking-[0.32em]", accent.icon)}>
-              {member.role}
-            </p>
-            <p className="mt-4 text-sm leading-6 text-[var(--muted-foreground)]">
-              {member.summary}
-            </p>
-          </div>
-          <div className="mt-6 flex items-center justify-center">
-            <XIconButton href={member.x} label={`Perfil de X de ${member.name}`} />
-          </div>
-        </CardContent>
-      </Card>
-    </Reveal>
-  )
-}
-
 export function LandingPage() {
   const jsonLd = JSON.stringify(structuredData).replace(/</g, "\\u003c")
 
@@ -388,7 +336,7 @@ export function LandingPage() {
             </a>
 
             <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
-              {navItems.map((item) => (
+              {headerNavItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
@@ -401,7 +349,9 @@ export function LandingPage() {
 
             <div className="flex items-center gap-2">
               <a
-                href="#membership-form"
+                href={communityJoinUrl}
+                target="_blank"
+                rel="noreferrer"
                 className={cn(
                   buttonVariants({ variant: "default", size: "default" }),
                   "hidden h-10 rounded-full border-0 bg-[linear-gradient(135deg,var(--primary),var(--primary-strong))] px-4 text-sm font-semibold text-[var(--primary-foreground)] shadow-[0_16px_40px_rgba(52,254,160,0.16)] lg:inline-flex"
@@ -410,7 +360,7 @@ export function LandingPage() {
                 Únete
               </a>
               <div className="lg:hidden">
-                <MobileNav items={navItems} />
+                <MobileNav items={headerNavItems} joinHref={communityJoinUrl} />
               </div>
             </div>
           </div>
@@ -473,7 +423,7 @@ export function LandingPage() {
               <Reveal delay={0.16} initiallyVisible>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <a
-                    href="https://linktr.ee/solanavenezuela"
+                    href={communityJoinUrl}
                     target="_blank"
                     rel="noreferrer"
                     className={cn(
@@ -634,6 +584,7 @@ export function LandingPage() {
           </div>
         </section>
 
+        {/*
         <section
           id="miembros"
           className="relative scroll-mt-32 overflow-hidden bg-[var(--surface-low)] py-20 sm:py-24"
@@ -720,6 +671,7 @@ export function LandingPage() {
             </Reveal>
           </div>
         </section>
+        */}
       </main>
 
       <footer className="border-t border-white/6 bg-[var(--surface-dim)] py-12">
