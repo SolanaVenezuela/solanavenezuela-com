@@ -36,6 +36,7 @@ import { cn } from "@/lib/utils"
 
 const founderSolanaGradient = "from-[#19fb9b] via-[#43b4ca] to-[#9945ff]"
 const communityJoinUrl = "https://linktr.ee/solanavenezuela"
+const telegramGroupUrl = "https://t.me/SolanaVenezuela"
 const headerNavItems = navItems.filter((item) => item.href !== "#miembros")
 
 const accentStyles = {
@@ -349,7 +350,7 @@ export function LandingPage() {
 
             <div className="flex items-center gap-2">
               <a
-                href={communityJoinUrl}
+                href={telegramGroupUrl}
                 target="_blank"
                 rel="noreferrer"
                 className={cn(
@@ -360,7 +361,7 @@ export function LandingPage() {
                 Únete
               </a>
               <div className="lg:hidden">
-                <MobileNav items={headerNavItems} joinHref={communityJoinUrl} />
+                <MobileNav items={headerNavItems} joinHref={telegramGroupUrl} />
               </div>
             </div>
           </div>

@@ -150,7 +150,7 @@ export const founderMembers = [
     name: "Arianna Cabrera",
     role: "Team",
     image:
-      "/images/team/aricr.png",
+      "/images/team/aricr.jpg",
     imageAlt: "Retrato de Arianna Cabrera.",
     x: "https://x.com/AriCR18"
   },
