@@ -112,6 +112,18 @@ export const resourceCategories = [
 
 export const resources = [
   {
+    title: "Colosseum Live Session EP2",
+    description:
+      "Sesión en video para seguir de cerca ideas, demos y conversaciones alrededor del ecosistema builder en Solana.",
+    eyebrow: "YouTube",
+    image: "https://i.ytimg.com/vi/W_QoAfVykgg/hqdefault.jpg",
+    imageAlt: "Miniatura de la transmision en vivo de Solana Venezuela en YouTube.",
+    href: "https://www.youtube.com/live/W_QoAfVykgg?si=TIFNphTH9BT-NcOg",
+    ctaLabel: "Ver en YouTube",
+    kind: "video",
+    tone: "secondary",
+  },
+  {
     title: "Frontier Hackathon - Colosseum",
     description:
       "Guía publicada en X por Solana Venezuela sobre el Frontier Hackathon de Colosseum, con contexto del programa y recomendaciones para builders que quieran competir mejor.",
@@ -135,6 +147,7 @@ export const resources = [
     kind: "video",
     tone: "tertiary",
   },
+
 ] satisfies ResourceCard[]
 
 export const founderMembers = [
