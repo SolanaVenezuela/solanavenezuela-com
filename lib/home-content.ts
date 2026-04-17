@@ -112,6 +112,18 @@ export const resourceCategories = [
 
 export const resources = [
   {
+    title: "Frontier Hackathon: Potencia tu asistente de IA",
+    description:
+      "Hoy en día, trabajar con modelos y herramientas de IA, tal como sucedió con el inglés, dejó de ser un \"plus\" para convertirse en un requisito. ",
+    eyebrow: "X Article",
+    image: "/images/content/frontier-hackaton-impulsa-tu-asistente-de-ia.png",
+    imageAlt: "Visual editorial de Solana Venezuela para acompañar el artículo sobre cómo potenciar tu asistente de IA para el Frontier Hackathon.",
+    href: "https://x.com/SolanaVenezuela/status/2045242116733813086",
+    ctaLabel: "Leer artículo",
+    kind: "article",
+    tone: "secondary",
+  },
+  {
     title: "Colosseum Live Session EP3",
     description:
       "Sesión en video para seguir de cerca ideas, demos y conversaciones alrededor del ecosistema builder en Solana.",
@@ -123,6 +135,7 @@ export const resources = [
     kind: "video",
     tone: "primary",
   },
+
   {
     title: "Colosseum Live Session EP2",
     description:
