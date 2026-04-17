@@ -112,6 +112,18 @@ export const resourceCategories = [
 
 export const resources = [
   {
+    title: "Colosseum Live Session EP3",
+    description:
+      "Sesión en video para seguir de cerca ideas, demos y conversaciones alrededor del ecosistema builder en Solana.",
+    eyebrow: "YouTube",
+    image: "https://i.ytimg.com/vi/_0iHcRIj7As/hqdefault.jpg",
+    imageAlt: "Miniatura del video Colosseum Live Session EP3 en YouTube.",
+    href: "https://www.youtube.com/live/_0iHcRIj7As?si=R8S67QmTW3OY0kYv",
+    ctaLabel: "Ver en YouTube",
+    kind: "video",
+    tone: "primary",
+  },
+  {
     title: "Colosseum Live Session EP2",
     description:
       "Sesión en video para seguir de cerca ideas, demos y conversaciones alrededor del ecosistema builder en Solana.",
