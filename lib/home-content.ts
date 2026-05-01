@@ -124,6 +124,42 @@ export const resources = [
     tone: "secondary",
   },
   {
+    title: "Colosseum Live Session EP6",
+    description:
+      "Sesión en video para seguir de cerca ideas, demos y conversaciones alrededor del ecosistema builder en Solana.",
+    eyebrow: "YouTube",
+    image: "https://i.ytimg.com/vi/4VdYzibvA3I/hqdefault.jpg",
+    imageAlt: "Miniatura del video Colosseum Live Session EP6 en YouTube.",
+    href: "https://www.youtube.com/watch?v=4VdYzibvA3I",
+    ctaLabel: "Ver en YouTube",
+    kind: "video",
+    tone: "primary",
+  },
+  {
+    title: "Colosseum Live Session EP5",
+    description:
+      "Sesión en video para seguir de cerca ideas, demos y conversaciones alrededor del ecosistema builder en Solana.",
+    eyebrow: "YouTube",
+    image: "https://i.ytimg.com/vi/NQDIhf88Ook/hqdefault.jpg",
+    imageAlt: "Miniatura del video Colosseum Live Session EP5 en YouTube.",
+    href: "https://www.youtube.com/watch?v=NQDIhf88Ook",
+    ctaLabel: "Ver en YouTube",
+    kind: "video",
+    tone: "secondary",
+  },
+  {
+    title: "Colosseum Live Session EP4",
+    description:
+      "Sesión en video para seguir de cerca ideas, demos y conversaciones alrededor del ecosistema builder en Solana.",
+    eyebrow: "YouTube",
+    image: "https://i.ytimg.com/vi/CBKCMpCHH2g/hqdefault.jpg",
+    imageAlt: "Miniatura del video Colosseum Live Session EP4 en YouTube.",
+    href: "https://www.youtube.com/watch?v=CBKCMpCHH2g",
+    ctaLabel: "Ver en YouTube",
+    kind: "video",
+    tone: "tertiary",
+  },
+  {
     title: "Colosseum Live Session EP3",
     description:
       "Sesión en video para seguir de cerca ideas, demos y conversaciones alrededor del ecosistema builder en Solana.",
