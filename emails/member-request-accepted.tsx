@@ -13,7 +13,10 @@ import {
   Text,
 } from "@react-email/components"
 
+import type { Locale } from "@/i18n/routing"
+
 interface MemberRequestAcceptedEmailProps {
+  locale?: Locale
   COMMUNITY_NAME?: string
   MEMBER_NAME?: string
   REQUEST_ID?: string
@@ -25,6 +28,7 @@ interface MemberRequestAcceptedEmailProps {
 }
 
 export default function MemberRequestAcceptedEmail({
+  locale = "es",
   COMMUNITY_NAME = "{{{COMMUNITY_NAME}}}",
   MEMBER_NAME = "{{{MEMBER_NAME}}}",
   REQUEST_ID = "{{{REQUEST_ID}}}",
@@ -34,23 +38,29 @@ export default function MemberRequestAcceptedEmail({
   TEAM_EMAIL = "{{{TEAM_EMAIL}}}",
   SITE_URL = "{{{SITE_URL}}}",
 }: MemberRequestAcceptedEmailProps) {
+  const isSpanish = locale === "es"
+
   return (
     <Html>
       <Head />
-      <Preview>Tu solicitud fue aprobada</Preview>
+      <Preview>{isSpanish ? "Tu solicitud fue aprobada" : "Your request was approved"}</Preview>
       <Body style={body}>
         <Container style={container}>
           <Section style={badgeRow}>
-            <Text style={badge}>Solicitud aprobada</Text>
+            <Text style={badge}>{isSpanish ? "Solicitud aprobada" : "Request approved"}</Text>
           </Section>
-          <Heading style={heading}>Bienvenido a {COMMUNITY_NAME}</Heading>
+          <Heading style={heading}>
+            {isSpanish ? `Bienvenido a ${COMMUNITY_NAME}` : `Welcome to ${COMMUNITY_NAME}`}
+          </Heading>
           <Text style={paragraph}>
-            Hola {MEMBER_NAME}, revisamos tu solicitud y nos alegra confirmarte que fue aprobada.
+            {isSpanish
+              ? `Hola ${MEMBER_NAME}, revisamos tu solicitud y nos alegra confirmarte que fue aprobada.`
+              : `Hi ${MEMBER_NAME}, we reviewed your request and are happy to confirm that it was approved.`}
           </Text>
 
           <Section style={panel}>
-            <Text style={detail}><strong>Solicitud:</strong> {REQUEST_ID}</Text>
-            <Text style={detail}><strong>Siguiente paso:</strong> {STATUS_NOTE}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Solicitud" : "Request"}:</strong> {REQUEST_ID}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Siguiente paso" : "Next step"}:</strong> {STATUS_NOTE}</Text>
           </Section>
 
           <Button href={ACTION_URL} style={primaryButton}>
@@ -60,10 +70,14 @@ export default function MemberRequestAcceptedEmail({
           <Hr style={divider} />
 
           <Text style={footer}>
-            Si tienes preguntas, puedes escribirnos a {TEAM_EMAIL}.
+            {isSpanish
+              ? `Si tienes preguntas, puedes escribirnos a ${TEAM_EMAIL}.`
+              : `If you have questions, you can reach us at ${TEAM_EMAIL}.`}
           </Text>
           <Text style={footerLink}>
-            <Link href={SITE_URL} style={link}>Volver a {COMMUNITY_NAME}</Link>
+            <Link href={SITE_URL} style={link}>
+              {isSpanish ? `Volver a ${COMMUNITY_NAME}` : `Back to ${COMMUNITY_NAME}`}
+            </Link>
           </Text>
         </Container>
       </Body>

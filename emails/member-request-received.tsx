@@ -13,7 +13,10 @@ import {
   Text,
 } from "@react-email/components"
 
+import type { Locale } from "@/i18n/routing"
+
 interface MemberRequestReceivedEmailProps {
+  locale?: Locale
   COMMUNITY_NAME?: string
   MEMBER_NAME?: string
   MEMBER_EMAIL?: string
@@ -26,6 +29,7 @@ interface MemberRequestReceivedEmailProps {
 }
 
 export default function MemberRequestReceivedEmail({
+  locale = "es",
   COMMUNITY_NAME = "{{{COMMUNITY_NAME}}}",
   MEMBER_NAME = "{{{MEMBER_NAME}}}",
   MEMBER_EMAIL = "{{{MEMBER_EMAIL}}}",
@@ -36,46 +40,61 @@ export default function MemberRequestReceivedEmail({
   RESOURCES_URL = "{{{RESOURCES_URL}}}",
   TEAM_EMAIL = "{{{TEAM_EMAIL}}}",
 }: MemberRequestReceivedEmailProps) {
+  const isSpanish = locale === "es"
+
   return (
     <Html>
       <Head />
-      <Preview>Recibimos tu solicitud de membresía</Preview>
+      <Preview>
+        {isSpanish
+          ? "Recibimos tu solicitud de membresía"
+          : "We received your membership request"}
+      </Preview>
       <Body style={body}>
         <Container style={container}>
           <Section style={badgeRow}>
-            <Text style={badge}>Solicitud recibida</Text>
+            <Text style={badge}>{isSpanish ? "Solicitud recibida" : "Request received"}</Text>
           </Section>
-          <Heading style={heading}>Tu solicitud ya está en revisión.</Heading>
+          <Heading style={heading}>
+            {isSpanish ? "Tu solicitud ya está en revisión." : "Your request is now under review."}
+          </Heading>
           <Text style={paragraph}>
-            Hola {MEMBER_NAME}, gracias por postularte a {COMMUNITY_NAME}. Ya recibimos tu solicitud y el equipo revisará la información enviada.
+            {isSpanish
+              ? `Hola ${MEMBER_NAME}, gracias por postularte a ${COMMUNITY_NAME}. Ya recibimos tu solicitud y el equipo revisará la información enviada.`
+              : `Hi ${MEMBER_NAME}, thanks for applying to ${COMMUNITY_NAME}. We received your request and the team will review the information you submitted.`}
           </Text>
 
           <Section style={panel}>
-            <Text style={detail}><strong>Correo:</strong> {MEMBER_EMAIL}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Correo" : "Email"}:</strong> {MEMBER_EMAIL}</Text>
             <Text style={detail}><strong>X:</strong> {MEMBER_X_HANDLE}</Text>
-            <Text style={detail}><strong>Habilidad principal:</strong> {MEMBER_SKILL}</Text>
-            <Text style={detail}><strong>Solicitud:</strong> {REQUEST_ID}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Habilidad principal" : "Primary skill"}:</strong> {MEMBER_SKILL}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Solicitud" : "Request"}:</strong> {REQUEST_ID}</Text>
           </Section>
 
           <Section style={panel}>
-            <Text style={sectionLabel}>Qué sigue</Text>
+            <Text style={sectionLabel}>{isSpanish ? "Qué sigue" : "What happens next"}</Text>
             <Text style={paragraphCompact}>
-              Te responderemos en aproximadamente {RESPONSE_TIME}. Si necesitamos más contexto,
-              te escribiremos desde {TEAM_EMAIL}.
+              {isSpanish
+                ? `Te responderemos en aproximadamente ${RESPONSE_TIME}. Si necesitamos más contexto, te escribiremos desde ${TEAM_EMAIL}.`
+                : `We will reply in about ${RESPONSE_TIME}. If we need more context, we will reach out from ${TEAM_EMAIL}.`}
             </Text>
           </Section>
 
           <Button href={RESOURCES_URL} style={primaryButton}>
-            Explorar recursos mientras tanto
+            {isSpanish ? "Explorar recursos mientras tanto" : "Explore resources in the meantime"}
           </Button>
 
           <Hr style={divider} />
 
           <Text style={footer}>
-            Si necesitas actualizar tu solicitud, responde a este correo o contáctanos en {TEAM_EMAIL}.
+            {isSpanish
+              ? `Si necesitas actualizar tu solicitud, responde a este correo o contáctanos en ${TEAM_EMAIL}.`
+              : `If you need to update your request, reply to this email or contact us at ${TEAM_EMAIL}.`}
           </Text>
           <Text style={footerLink}>
-            <Link href={RESOURCES_URL} style={link}>Ir al sitio</Link>
+            <Link href={RESOURCES_URL} style={link}>
+              {isSpanish ? "Ir al sitio" : "Go to the site"}
+            </Link>
           </Text>
         </Container>
       </Body>

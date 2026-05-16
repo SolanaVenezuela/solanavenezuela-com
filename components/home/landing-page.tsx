@@ -1,8 +1,11 @@
 import Image from "next/image"
 import { SparklesIcon } from "lucide-react"
+import { useLocale } from "next-intl"
 
 import heroBackdrop from "@/public/images/solanavenezuela-hero.jpg"
 
+import type { Locale } from "@/i18n/routing"
+import { LocaleSwitcher } from "@/components/home/locale-switcher"
 import { MobileNav } from "@/components/home/mobile-nav"
 import { Float, Reveal } from "@/components/home/reveal"
 import { ResourcesSection } from "@/components/home/resources-section"
@@ -17,16 +20,9 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import {
-  footerPillars,
-  founderMembers,
-  heroStats,
-  navItems,
-  resourceCategories,
-  resources,
-  siteDescription,
-  siteName,
-  siteTagline,
-  valueCards,
+  communityJoinUrl,
+  getHomeContent,
+  telegramGroupUrl,
   type AccentTone,
   type FounderMember,
   type HeroStat,
@@ -35,9 +31,6 @@ import {
 import { cn } from "@/lib/utils"
 
 const founderSolanaGradient = "from-[#19fb9b] via-[#43b4ca] to-[#9945ff]"
-const communityJoinUrl = "https://linktr.ee/solanavenezuela"
-const telegramGroupUrl = "https://t.me/SolanaVenezuela"
-const headerNavItems = navItems.filter((item) => item.href !== "#miembros")
 
 const accentStyles = {
   primary: {
@@ -70,34 +63,6 @@ const accentStyles = {
     card: string
   }
 >
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      name: siteName,
-      url: "https://solanavenezuela.com",
-      logo: "https://solanavenezuela.com/images/solanavenezuela-hero.jpg",
-      description: siteDescription,
-      areaServed: "Venezuela",
-      knowsAbout: [
-        "Solana",
-        "Web3",
-        "Rust",
-        "Blockchain",
-        "Desarrollo comunitario",
-      ],
-    },
-    {
-      "@type": "WebSite",
-      name: siteName,
-      url: "https://solanavenezuela.com",
-      description: siteDescription,
-      inLanguage: "es-VE",
-    },
-  ],
-} as const
 
 interface SectionHeadingProps {
   headingId: string
@@ -245,7 +210,7 @@ function XIconButton({ href, label }: { href?: string; label: string }) {
     <button
       type="button"
       disabled
-      aria-label={`${label} próximamente`}
+      aria-label={label}
       className={cn(baseClass, "cursor-not-allowed opacity-65")}
     >
       <XBrandIcon />
@@ -257,9 +222,11 @@ function XIconButton({ href, label }: { href?: string; label: string }) {
 function FounderPanel({
   founder,
   delay,
+  xLabelPrefix,
 }: {
   founder: FounderMember
   delay: number
+  xLabelPrefix: string
 }) {
   return (
     <Reveal delay={delay} className="flex h-full flex-col items-center text-center">
@@ -289,13 +256,37 @@ function FounderPanel({
         </span>
       </p>
       <div className="mt-5 flex items-center gap-3 text-white/45">
-        <XIconButton href={founder.x} label={`Perfil de X de ${founder.name}`} />
+        <XIconButton href={founder.x} label={`${xLabelPrefix} ${founder.name}`} />
       </div>
     </Reveal>
   )
 }
 
 export function LandingPage() {
+  const locale = useLocale() as Locale
+  const content = getHomeContent(locale)
+  const headerNavItems = content.navItems.filter((item) => item.href !== "#miembros")
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        name: content.siteName,
+        url: "https://solanavenezuela.com",
+        logo: "https://solanavenezuela.com/images/solanavenezuela-hero.jpg",
+        description: content.siteDescription,
+        areaServed: "Venezuela",
+        knowsAbout: content.structuredData.knowsAbout,
+      },
+      {
+        "@type": "WebSite",
+        name: content.siteName,
+        url: "https://solanavenezuela.com",
+        description: content.siteDescription,
+        inLanguage: content.structuredData.inLanguage,
+      },
+    ],
+  } as const
   const jsonLd = JSON.stringify(structuredData).replace(/</g, "\\u003c")
 
   return (
@@ -308,7 +299,7 @@ export function LandingPage() {
         href="#contenido"
         className="sr-only fixed left-4 top-4 z-[100] rounded-full bg-white px-4 py-2 text-sm font-medium text-black focus:not-sr-only focus:outline-none focus:ring-4 focus:ring-[var(--primary)]"
       >
-        Saltar al contenido
+        {content.header.skipToContentLabel}
       </a>
 
       <header className="fixed inset-x-0 top-0 z-50">
@@ -325,18 +316,18 @@ export function LandingPage() {
               />
               <div className="flex flex-col">
                 <span className="font-heading text-sm font-semibold uppercase tracking-[0.22em] text-white sm:text-base">
-                  Solana Venezuela
+                  {content.siteName}
                   <span aria-hidden="true" className="ml-1 text-base sm:text-lg">
                     🇻🇪
                   </span>
                 </span>
                 <span className="hidden text-[0.65rem] uppercase tracking-[0.24em] text-white/42 sm:block">
-                  Comunidad de Solana en Venezuela
+                  {content.header.brandSubtitle}
                 </span>
               </div>
             </a>
 
-            <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
+            <nav className="hidden items-center gap-1 lg:flex" aria-label={content.header.navAriaLabel}>
               {headerNavItems.map((item) => (
                 <a
                   key={item.href}
@@ -349,6 +340,10 @@ export function LandingPage() {
             </nav>
 
             <div className="flex items-center gap-2">
+              <LocaleSwitcher
+                ariaLabel={content.header.localeSwitcherLabel}
+                className="hidden lg:flex"
+              />
               <a
                 href={telegramGroupUrl}
                 target="_blank"
@@ -358,10 +353,18 @@ export function LandingPage() {
                   "hidden h-10 rounded-full border-0 bg-[linear-gradient(135deg,var(--primary),var(--primary-strong))] px-4 text-sm font-semibold text-[var(--primary-foreground)] shadow-[0_16px_40px_rgba(52,254,160,0.16)] lg:inline-flex"
                 )}
               >
-                Únete
+                {content.header.joinButtonLabel}
               </a>
               <div className="lg:hidden">
-                <MobileNav items={headerNavItems} joinHref={telegramGroupUrl} />
+                <MobileNav
+                  items={headerNavItems}
+                  joinHref={telegramGroupUrl}
+                  description={content.header.mobileDescription}
+                  joinLabel={content.header.mobileJoinLabel}
+                  localeSwitcherLabel={content.header.localeSwitcherLabel}
+                  navLabel={content.header.mobileNavAriaLabel}
+                  openLabel={content.header.openNavLabel}
+                />
               </div>
             </div>
           </div>
@@ -399,7 +402,7 @@ export function LandingPage() {
                   className="mb-6 w-fit rounded-full border-white/10 bg-white/5 px-4 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-[var(--primary)]"
                 >
                   <SparklesIcon className="size-3.5" />
-                  ADN Solana Venezuela
+                  {content.hero.badgeLabel}
                 </Badge>
               </Reveal>
 
@@ -408,16 +411,20 @@ export function LandingPage() {
                   id="hero-title"
                   className="max-w-3xl font-heading text-5xl leading-[1.02] font-semibold tracking-[-0.08em] text-white sm:text-6xl lg:text-7xl xl:text-[5.3rem]"
                 >
-                  Conectando el{" "}
-                  <span className="text-gradient inline-block pr-[0.06em]">Talento</span>{" "}
-                  <span className="text-gradient inline-block pr-[0.06em]">Venezolano</span>{" "}
-                  con Solana.
+                  {content.hero.titleLead}{" "}
+                  <span className="text-gradient inline-block pr-[0.06em]">
+                    {content.hero.titleAccentPrimary}
+                  </span>{" "}
+                  <span className="text-gradient inline-block pr-[0.06em]">
+                    {content.hero.titleAccentSecondary}
+                  </span>{" "}
+                  {content.hero.titleTrail}
                 </h1>
               </Reveal>
 
               <Reveal delay={0.1} initiallyVisible>
                 <p className="mt-6 max-w-2xl text-lg leading-8 text-[var(--muted-foreground)] sm:text-xl">
-                  Una comunidad de builders que escala el ecosistema de Solana desde Venezuela, con educación, colaboración y producto.
+                  {content.hero.description}
                 </p>
               </Reveal>
 
@@ -432,7 +439,7 @@ export function LandingPage() {
                       "h-12 rounded-full border-0 bg-[linear-gradient(135deg,var(--primary),var(--primary-strong))] px-5 text-[0.95rem] font-semibold text-[var(--primary-foreground)] shadow-[0_16px_48px_rgba(52,254,160,0.18)]"
                     )}
                   >
-                    Únete a la comunidad
+                    {content.hero.primaryCtaLabel}
                   </a>
                   <a
                     href="#recursos"
@@ -441,13 +448,13 @@ export function LandingPage() {
                       "h-12 rounded-full border-white/12 bg-white/[0.03] px-5 text-[0.95rem] font-semibold text-white hover:bg-white/[0.06]"
                     )}
                   >
-                    Explorar recursos
+                    {content.hero.secondaryCtaLabel}
                   </a>
                 </div>
               </Reveal>
 
               <div className="mt-10 grid gap-3 sm:grid-cols-3">
-                {heroStats.map((stat, index) => (
+                {content.hero.stats.map((stat, index) => (
                   <HeroStatCard key={stat.label} stat={stat} delay={0.2 + index * 0.06} />
                 ))}
               </div>
@@ -473,7 +480,7 @@ export function LandingPage() {
                   <div className="relative aspect-[0.94] overflow-hidden rounded-[1.75rem] border border-white/10 bg-black/40">
                     <Image
                       src="/images/solanavenezuela-main.png"
-                      alt="Retrato digital futurista en tonos cian dentro de una tarjeta editorial de Solana Venezuela."
+                      alt={content.hero.imageAlt}
                       fill
                       sizes="(min-width: 1024px) 34vw, 84vw"
                       className="object-cover"
@@ -483,18 +490,18 @@ export function LandingPage() {
                   <div className="mt-4 grid gap-3 sm:grid-cols-2">
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
                       <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
-                        En foco
+                        {content.hero.spotlightEyebrow}
                       </p>
                       <p className="mt-3 font-heading text-xl font-semibold tracking-[-0.04em] text-white">
-                        Educación, comunidad y energía que construye.
+                        {content.hero.spotlightTitle}
                       </p>
                     </div>
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
                       <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
-                        Latido
+                        {content.hero.pulseEyebrow}
                       </p>
                       <p className="mt-3 text-sm leading-6 text-white/80">
-                        Contenido y recursos en español, red de conexiones tácticas y rampa de entrada para crear y construir sobre Solana.
+                        {content.hero.pulseDescription}
                       </p>
                     </div>
                   </div>
@@ -509,13 +516,13 @@ export function LandingPage() {
             <Reveal className="mb-12">
               <SectionHeading
                 headingId="mision-vision-title"
-                eyebrow="Norte creativo"
-                title="Infraestructura con identidad local."
-                description="Sincronizando el pulso de la innovación nacional con la red más rápida del mundo: una estructura de alta fidelidad donde el talento venezolano brilla sobre la solidez de Solana."
+                eyebrow={content.mission.eyebrow}
+                title={content.mission.title}
+                description={content.mission.description}
               />
             </Reveal>
             <div className="grid gap-6 lg:grid-cols-2">
-              {valueCards.map((value, index) => (
+              {content.mission.cards.map((value, index) => (
                 <ValuePanel key={value.title} value={value} delay={index * 0.08} />
               ))}
             </div>
@@ -529,13 +536,20 @@ export function LandingPage() {
         >
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_80%_0%,rgba(185,132,255,0.12),transparent_24%),radial-gradient(circle_at_10%_0%,rgba(52,254,160,0.08),transparent_26%)]" />
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <ResourcesSection categories={resourceCategories} resources={resources}>
+            <ResourcesSection
+              categories={content.resources.categories}
+              resources={content.resources.items}
+              emptyDescription={content.resources.emptyDescription}
+              emptyFallbackCategoryLabel={content.resources.emptyFallbackCategoryLabel}
+              emptyTitlePrefix={content.resources.emptyTitlePrefix}
+              filterAriaLabel={content.resources.filterAriaLabel}
+            >
               <Reveal className="flex-1">
                 <SectionHeading
                   headingId="vault-title"
-                  eyebrow="Recursos"
-                  title="Documentación, aprendizaje y comunidad en un solo lugar."
-                  description="El archivo central del talento venezolano. Una colección de recursos diseñada para que la comunidad venezolana aprenda a navegar, construir y prosperar en Solana. De la teoría a la oportunidad, todo el ecosistema en una sola pieza"
+                  eyebrow={content.resources.eyebrow}
+                  title={content.resources.title}
+                  description={content.resources.description}
                 />
               </Reveal>
             </ResourcesSection>
@@ -552,9 +566,9 @@ export function LandingPage() {
             <Reveal>
               <SectionHeading
                 headingId="founders-title"
-                eyebrow="Core Team"
-                title="SOLANA x VENEZUELA"
-                description="Perfiles con historia, visión compartida y el respaldo de una red que proyecta la fuerza de Venezuela y Solana."
+                eyebrow={content.coreTeam.eyebrow}
+                title={content.coreTeam.title}
+                description={content.coreTeam.description}
                 centered
                 containerClassName="max-w-6xl"
                 titleClassName="mx-auto whitespace-nowrap text-[clamp(1.5rem,7vw,4.5rem)] leading-none tracking-[0.1em] sm:tracking-[0.16em] lg:tracking-[0.22em]"
@@ -562,11 +576,12 @@ export function LandingPage() {
               />
             </Reveal>
             <div className="mt-14 grid gap-12 md:grid-cols-3">
-              {founderMembers.map((founder, index) => (
+              {content.coreTeam.founders.map((founder, index) => (
                 <FounderPanel
                   key={founder.name}
                   founder={founder}
                   delay={index * 0.08}
+                  xLabelPrefix={content.coreTeam.xProfileLabelPrefix}
                 />
               ))}
             </div>
@@ -679,13 +694,13 @@ export function LandingPage() {
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 text-center sm:px-6">
           <div>
             <p className="font-heading text-xl font-semibold uppercase tracking-[0.24em] text-white">
-              {siteName} <span aria-hidden="true">🇻🇪</span>
+              {content.siteName} <span aria-hidden="true">🇻🇪</span>
             </p>
-            <p className="mt-3 text-sm text-[var(--muted-foreground)]">{siteTagline}</p>
+            <p className="mt-3 text-sm text-[var(--muted-foreground)]">{content.siteTagline}</p>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-2">
-            {footerPillars.map((pillar) => {
+            {content.footer.pillars.map((pillar) => {
               const Icon = pillar.icon
 
               return (
@@ -708,7 +723,7 @@ export function LandingPage() {
               rel="noreferrer"
               className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface-dim)]"
             >
-              Twitter
+              {content.footer.socialLinks.x}
             </a>
             <a
               href="https://t.me/SolanaVenezuela"
@@ -716,12 +731,12 @@ export function LandingPage() {
               rel="noreferrer"
               className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface-dim)]"
             >
-              Telegram
+              {content.footer.socialLinks.telegram}
             </a>
           </div>
 
           <p className="max-w-xl text-sm leading-6 text-[var(--muted-foreground)]">
-            Construido sobre Solana. Impulsado por el talento venezolano. Un espacio que trasciende para convertirse en el hogar digital del aprendizaje, la conexión y el crecimiento de Solana en Venezuela.
+            {content.footer.description}
           </p>
         </div>
       </footer>

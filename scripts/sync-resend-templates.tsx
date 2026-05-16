@@ -5,10 +5,15 @@ import * as React from "react"
 import { render } from "@react-email/components"
 import { Resend } from "resend"
 
+import type { Locale } from "@/i18n/routing"
 import MemberRequestAcceptedEmail from "@/emails/member-request-accepted"
 import MemberRequestInternalEmail from "@/emails/member-request-internal"
 import MemberRequestReceivedEmail from "@/emails/member-request-received"
 import MemberRequestRejectedEmail from "@/emails/member-request-rejected"
+import {
+  getMemberRequestCopy,
+  getSkillOptions,
+} from "@/lib/member-request"
 import { memberRequestTemplateIds } from "@/lib/resend-template-ids"
 
 type TemplateVariable = {
@@ -43,74 +48,89 @@ const resendFromName = process.env.RESEND_FROM_NAME?.trim() || "Solana Venezuela
 const resendFromAddress = formatFromAddress(resendFromEmail, resendFromName)
 
 const resend = new Resend(resendApiKey)
-const templateConfigs: TemplateConfig[] = [
-  {
-    alias: memberRequestTemplateIds.internal,
-    name: "Solana Venezuela - Member Request Internal",
-    subject: "Nueva solicitud de membresía - {{{MEMBER_NAME}}}",
-    variables: [
-      stringVariable("COMMUNITY_NAME", "Solana Venezuela"),
-      stringVariable("MEMBER_NAME", "Juan Pérez"),
-      stringVariable("MEMBER_EMAIL", "juan@example.com"),
-      stringVariable("MEMBER_X_HANDLE", "@juanbuilder"),
-      stringVariable("MEMBER_SKILL", "Desarrollador (Rust/Anchor)"),
-      stringVariable("MEMBER_REASON", "Quiero aportar contenido y desarrollo a la comunidad."),
-      stringVariable("REQUEST_ID", "req_123456"),
-      stringVariable("SUBMITTED_AT", "11 de abril de 2026, 10:00 a. m."),
-      stringVariable("REVIEW_URL", "https://solanavenezuela.com/#membership-form"),
-      stringVariable("TEAM_EMAIL", "team@solanavenezuela.com"),
-    ],
-    render: () => <MemberRequestInternalEmail />,
-  },
-  {
-    alias: memberRequestTemplateIds.received,
-    name: "Solana Venezuela - Member Request Received",
-    subject: "Recibimos tu solicitud en {{{COMMUNITY_NAME}}}",
-    variables: [
-      stringVariable("COMMUNITY_NAME", "Solana Venezuela"),
-      stringVariable("MEMBER_NAME", "Juan Pérez"),
-      stringVariable("MEMBER_EMAIL", "juan@example.com"),
-      stringVariable("MEMBER_X_HANDLE", "@juanbuilder"),
-      stringVariable("MEMBER_SKILL", "Desarrollador (Rust/Anchor)"),
-      stringVariable("REQUEST_ID", "req_123456"),
-      stringVariable("RESPONSE_TIME", "1 a 3 días hábiles"),
-      stringVariable("RESOURCES_URL", "https://solanavenezuela.com/#recursos"),
-      stringVariable("TEAM_EMAIL", "team@solanavenezuela.com"),
-    ],
-    render: () => <MemberRequestReceivedEmail />,
-  },
-  {
-    alias: memberRequestTemplateIds.accepted,
-    name: "Solana Venezuela - Member Request Accepted",
-    subject: "Tu solicitud fue aprobada - {{{COMMUNITY_NAME}}}",
-    variables: [
-      stringVariable("COMMUNITY_NAME", "Solana Venezuela"),
-      stringVariable("MEMBER_NAME", "Juan Pérez"),
-      stringVariable("REQUEST_ID", "req_123456"),
-      stringVariable("STATUS_NOTE", "Te contactaremos con los siguientes pasos del onboarding."),
-      stringVariable("ACTION_URL", "https://solanavenezuela.com/#recursos"),
-      stringVariable("ACTION_LABEL", "Explorar recursos"),
-      stringVariable("TEAM_EMAIL", "team@solanavenezuela.com"),
-      stringVariable("SITE_URL", "https://solanavenezuela.com"),
-    ],
-    render: () => <MemberRequestAcceptedEmail />,
-  },
-  {
-    alias: memberRequestTemplateIds.rejected,
-    name: "Solana Venezuela - Member Request Rejected",
-    subject: "Actualización sobre tu solicitud - {{{COMMUNITY_NAME}}}",
-    variables: [
-      stringVariable("COMMUNITY_NAME", "Solana Venezuela"),
-      stringVariable("MEMBER_NAME", "Juan Pérez"),
-      stringVariable("REQUEST_ID", "req_123456"),
-      stringVariable("STATUS_NOTE", "Por ahora no podremos avanzar, pero puedes volver a postularte más adelante."),
-      stringVariable("REAPPLY_URL", "https://solanavenezuela.com/#membership-form"),
-      stringVariable("TEAM_EMAIL", "team@solanavenezuela.com"),
-      stringVariable("SITE_URL", "https://solanavenezuela.com"),
-    ],
-    render: () => <MemberRequestRejectedEmail />,
-  },
-]
+const locales: Locale[] = ["es", "en"]
+const templateConfigs: TemplateConfig[] = locales.flatMap((locale) => {
+  const copy = getMemberRequestCopy(locale)
+  const firstSkillLabel = getSkillOptions(locale)[0]?.label ?? "Developer"
+  const upperLocale = locale.toUpperCase()
+
+  return [
+    {
+      alias: memberRequestTemplateIds.internal[locale],
+      name: `Solana Venezuela - Member Request Internal (${upperLocale})`,
+      subject: copy.emails.internalSubject,
+      variables: [
+        stringVariable("COMMUNITY_NAME", "Solana Venezuela"),
+        stringVariable("MEMBER_NAME", locale === "es" ? "Juan Pérez" : "Jane Doe"),
+        stringVariable("MEMBER_EMAIL", locale === "es" ? "juan@example.com" : "jane@example.com"),
+        stringVariable("MEMBER_X_HANDLE", locale === "es" ? "@juanbuilder" : "@janebuilder"),
+        stringVariable("MEMBER_SKILL", firstSkillLabel),
+        stringVariable(
+          "MEMBER_REASON",
+          locale === "es"
+            ? "Quiero aportar contenido y desarrollo a la comunidad."
+            : "I want to contribute content and product work to the community."
+        ),
+        stringVariable("REQUEST_ID", "req_123456"),
+        stringVariable(
+          "SUBMITTED_AT",
+          locale === "es" ? "11 de abril de 2026, 10:00 a. m." : "April 11, 2026 at 10:00 AM"
+        ),
+        stringVariable("REVIEW_URL", `https://solanavenezuela.com/${locale}#membership-form`),
+        stringVariable("TEAM_EMAIL", "team@solanavenezuela.com"),
+      ],
+      render: () => <MemberRequestInternalEmail locale={locale} />,
+    },
+    {
+      alias: memberRequestTemplateIds.received[locale],
+      name: `Solana Venezuela - Member Request Received (${upperLocale})`,
+      subject: copy.emails.receivedSubject,
+      variables: [
+        stringVariable("COMMUNITY_NAME", "Solana Venezuela"),
+        stringVariable("MEMBER_NAME", locale === "es" ? "Juan Pérez" : "Jane Doe"),
+        stringVariable("MEMBER_EMAIL", locale === "es" ? "juan@example.com" : "jane@example.com"),
+        stringVariable("MEMBER_X_HANDLE", locale === "es" ? "@juanbuilder" : "@janebuilder"),
+        stringVariable("MEMBER_SKILL", firstSkillLabel),
+        stringVariable("REQUEST_ID", "req_123456"),
+        stringVariable("RESPONSE_TIME", copy.emails.receivedResponseTime),
+        stringVariable("RESOURCES_URL", `https://solanavenezuela.com/${locale}#recursos`),
+        stringVariable("TEAM_EMAIL", "team@solanavenezuela.com"),
+      ],
+      render: () => <MemberRequestReceivedEmail locale={locale} />,
+    },
+    {
+      alias: memberRequestTemplateIds.accepted[locale],
+      name: `Solana Venezuela - Member Request Accepted (${upperLocale})`,
+      subject: copy.emails.acceptedSubject,
+      variables: [
+        stringVariable("COMMUNITY_NAME", "Solana Venezuela"),
+        stringVariable("MEMBER_NAME", locale === "es" ? "Juan Pérez" : "Jane Doe"),
+        stringVariable("REQUEST_ID", "req_123456"),
+        stringVariable("STATUS_NOTE", copy.emails.acceptedDefaultNote),
+        stringVariable("ACTION_URL", `https://solanavenezuela.com/${locale}#recursos`),
+        stringVariable("ACTION_LABEL", copy.emails.acceptedDefaultActionLabel),
+        stringVariable("TEAM_EMAIL", "team@solanavenezuela.com"),
+        stringVariable("SITE_URL", `https://solanavenezuela.com/${locale}`),
+      ],
+      render: () => <MemberRequestAcceptedEmail locale={locale} />,
+    },
+    {
+      alias: memberRequestTemplateIds.rejected[locale],
+      name: `Solana Venezuela - Member Request Rejected (${upperLocale})`,
+      subject: copy.emails.rejectedSubject,
+      variables: [
+        stringVariable("COMMUNITY_NAME", "Solana Venezuela"),
+        stringVariable("MEMBER_NAME", locale === "es" ? "Juan Pérez" : "Jane Doe"),
+        stringVariable("REQUEST_ID", "req_123456"),
+        stringVariable("STATUS_NOTE", copy.emails.rejectedDefaultNote),
+        stringVariable("REAPPLY_URL", `https://solanavenezuela.com/${locale}#membership-form`),
+        stringVariable("TEAM_EMAIL", "team@solanavenezuela.com"),
+        stringVariable("SITE_URL", `https://solanavenezuela.com/${locale}`),
+      ],
+      render: () => <MemberRequestRejectedEmail locale={locale} />,
+    },
+  ]
+})
 
 async function main() {
   const templates = await resend.templates.list()

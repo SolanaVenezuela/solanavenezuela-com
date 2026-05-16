@@ -13,7 +13,10 @@ import {
   Text,
 } from "@react-email/components"
 
+import type { Locale } from "@/i18n/routing"
+
 interface MemberRequestInternalEmailProps {
+  locale?: Locale
   COMMUNITY_NAME?: string
   MEMBER_NAME?: string
   MEMBER_EMAIL?: string
@@ -27,6 +30,7 @@ interface MemberRequestInternalEmailProps {
 }
 
 export default function MemberRequestInternalEmail({
+  locale = "es",
   COMMUNITY_NAME = "{{{COMMUNITY_NAME}}}",
   MEMBER_NAME = "{{{MEMBER_NAME}}}",
   MEMBER_EMAIL = "{{{MEMBER_EMAIL}}}",
@@ -38,45 +42,59 @@ export default function MemberRequestInternalEmail({
   REVIEW_URL = "{{{REVIEW_URL}}}",
   TEAM_EMAIL = "{{{TEAM_EMAIL}}}",
 }: MemberRequestInternalEmailProps) {
+  const isSpanish = locale === "es"
+
   return (
     <Html>
       <Head />
-      <Preview>Nueva solicitud de membresía de {MEMBER_NAME}</Preview>
+      <Preview>
+        {isSpanish
+          ? `Nueva solicitud de membresía de ${MEMBER_NAME}`
+          : `New membership request from ${MEMBER_NAME}`}
+      </Preview>
       <Body style={body}>
         <Container style={container}>
           <Section style={badgeRow}>
-            <Text style={badge}>Solicitud interna</Text>
+            <Text style={badge}>{isSpanish ? "Solicitud interna" : "Internal request"}</Text>
           </Section>
-          <Heading style={heading}>Nueva solicitud de membresía</Heading>
+          <Heading style={heading}>
+            {isSpanish ? "Nueva solicitud de membresía" : "New membership request"}
+          </Heading>
           <Text style={paragraph}>
-            Se recibió una nueva solicitud para {COMMUNITY_NAME}. Estos son los datos enviados por la persona interesada.
+            {isSpanish
+              ? `Se recibió una nueva solicitud para ${COMMUNITY_NAME}. Estos son los datos enviados por la persona interesada.`
+              : `A new request for ${COMMUNITY_NAME} has been received. These are the details submitted by the interested person.`}
           </Text>
 
           <Section style={panel}>
-            <Text style={detail}><strong>Nombre:</strong> {MEMBER_NAME}</Text>
-            <Text style={detail}><strong>Correo:</strong> {MEMBER_EMAIL}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Nombre" : "Name"}:</strong> {MEMBER_NAME}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Correo" : "Email"}:</strong> {MEMBER_EMAIL}</Text>
             <Text style={detail}><strong>X:</strong> {MEMBER_X_HANDLE}</Text>
-            <Text style={detail}><strong>Habilidad principal:</strong> {MEMBER_SKILL}</Text>
-            <Text style={detail}><strong>Solicitud:</strong> {REQUEST_ID}</Text>
-            <Text style={detail}><strong>Enviada el:</strong> {SUBMITTED_AT}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Habilidad principal" : "Primary skill"}:</strong> {MEMBER_SKILL}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Solicitud" : "Request"}:</strong> {REQUEST_ID}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Enviada el" : "Submitted on"}:</strong> {SUBMITTED_AT}</Text>
           </Section>
 
           <Section style={panel}>
-            <Text style={sectionLabel}>Motivación</Text>
+            <Text style={sectionLabel}>{isSpanish ? "Motivación" : "Motivation"}</Text>
             <Text style={reason}>{MEMBER_REASON}</Text>
           </Section>
 
           <Button href={REVIEW_URL} style={primaryButton}>
-            Revisar solicitud
+            {isSpanish ? "Revisar solicitud" : "Review request"}
           </Button>
 
           <Hr style={divider} />
 
           <Text style={footer}>
-            Este correo se envió a {TEAM_EMAIL}. Puedes responder directamente para continuar la revisión.
+            {isSpanish
+              ? `Este correo se envió a ${TEAM_EMAIL}. Puedes responder directamente para continuar la revisión.`
+              : `This email was sent to ${TEAM_EMAIL}. You can reply directly to continue the review.`}
           </Text>
           <Text style={footerLink}>
-            <Link href={REVIEW_URL} style={link}>Abrir formulario</Link>
+            <Link href={REVIEW_URL} style={link}>
+              {isSpanish ? "Abrir formulario" : "Open form"}
+            </Link>
           </Text>
         </Container>
       </Body>

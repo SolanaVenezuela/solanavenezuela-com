@@ -1,7 +1,14 @@
-import { memberRequestSchema } from "@/lib/member-request"
+import {
+  createMemberRequestSchema,
+  getMemberRequestCopy,
+  normalizeRequestLocale,
+} from "@/lib/member-request"
 import { sendMemberRequestEmails } from "@/lib/resend"
 
 export async function POST(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const locale = normalizeRequestLocale(searchParams.get("locale"))
+  const copy = getMemberRequestCopy(locale)
   let payload: unknown
 
   try {
@@ -9,18 +16,18 @@ export async function POST(request: Request) {
   } catch {
     return Response.json(
       {
-        message: "No pudimos leer la solicitud enviada.",
+        message: copy.api.unreadableRequest,
       },
       { status: 400 }
     )
   }
 
-  const parsed = memberRequestSchema.safeParse(payload)
+  const parsed = createMemberRequestSchema(locale).safeParse(payload)
 
   if (!parsed.success) {
     return Response.json(
       {
-        message: "Revisa los campos del formulario e inténtalo de nuevo.",
+        message: copy.api.invalidForm,
         fieldErrors: parsed.error.flatten().fieldErrors,
       },
       { status: 400 }
@@ -32,6 +39,7 @@ export async function POST(request: Request) {
 
   try {
     await sendMemberRequestEmails({
+      locale,
       request: parsed.data,
       requestId,
       submittedAt,
@@ -41,7 +49,7 @@ export async function POST(request: Request) {
 
     return Response.json(
       {
-        message: "No pudimos enviar tu solicitud en este momento. Inténtalo nuevamente en unos minutos.",
+        message: copy.api.sendFailure,
       },
       { status: 500 }
     )
@@ -49,7 +57,7 @@ export async function POST(request: Request) {
 
   return Response.json(
     {
-      message: "Recibimos tu solicitud y ya enviamos el acuse de recibo a tu correo.",
+      message: copy.api.success,
       requestId,
     },
     { status: 201 }

@@ -1,4 +1,8 @@
-import { memberRequestStatusSchema } from "@/lib/member-request"
+import {
+  createMemberRequestStatusSchema,
+  getMemberRequestCopy,
+  normalizeRequestLocale,
+} from "@/lib/member-request"
 import {
   getMemberRequestStatusToken,
   sendMemberRequestStatusEmail,
@@ -7,12 +11,15 @@ import {
 const adminTokenHeader = "x-member-request-admin-token"
 
 export async function POST(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const locale = normalizeRequestLocale(searchParams.get("locale"))
+  const copy = getMemberRequestCopy(locale)
   const expectedToken = getMemberRequestStatusToken()
 
   if (!expectedToken) {
     return Response.json(
       {
-        message: "Configura MEMBER_REQUEST_STATUS_TOKEN antes de usar esta ruta.",
+        message: copy.statusApi.missingToken,
       },
       { status: 500 }
     )
@@ -21,7 +28,7 @@ export async function POST(request: Request) {
   if (request.headers.get(adminTokenHeader) !== expectedToken) {
     return Response.json(
       {
-        message: "No autorizado.",
+        message: copy.statusApi.unauthorized,
       },
       { status: 401 }
     )
@@ -34,18 +41,18 @@ export async function POST(request: Request) {
   } catch {
     return Response.json(
       {
-        message: "No pudimos leer la solicitud enviada.",
+        message: copy.statusApi.unreadableRequest,
       },
       { status: 400 }
     )
   }
 
-  const parsed = memberRequestStatusSchema.safeParse(payload)
+  const parsed = createMemberRequestStatusSchema(locale).safeParse(payload)
 
   if (!parsed.success) {
     return Response.json(
       {
-        message: "Revisa el payload e inténtalo de nuevo.",
+        message: copy.statusApi.invalidPayload,
         fieldErrors: parsed.error.flatten().fieldErrors,
       },
       { status: 400 }
@@ -53,13 +60,13 @@ export async function POST(request: Request) {
   }
 
   try {
-    await sendMemberRequestStatusEmail({ decision: parsed.data })
+    await sendMemberRequestStatusEmail({ decision: parsed.data, locale })
   } catch (error) {
     console.error("Failed to send member request status email", error)
 
     return Response.json(
       {
-        message: "No pudimos enviar el correo de estado en este momento.",
+        message: copy.statusApi.emailFailed,
       },
       { status: 500 }
     )
@@ -68,7 +75,7 @@ export async function POST(request: Request) {
   return Response.json({
     message:
       parsed.data.status === "accepted"
-        ? "Correo de aceptación enviado."
-        : "Correo de rechazo enviado.",
+        ? copy.statusApi.acceptedSent
+        : copy.statusApi.rejectedSent,
   })
 }

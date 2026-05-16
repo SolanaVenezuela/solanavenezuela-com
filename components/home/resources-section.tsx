@@ -63,10 +63,22 @@ const layoutTransition = {
 interface ResourcesSectionProps {
   categories: ResourceCategory[]
   resources: ResourceCard[]
+  emptyDescription: string
+  emptyFallbackCategoryLabel: string
+  emptyTitlePrefix: string
+  filterAriaLabel: string
   children?: React.ReactNode
 }
 
-export function ResourcesSection({ categories, resources, children }: ResourcesSectionProps) {
+export function ResourcesSection({
+  categories,
+  resources,
+  emptyDescription,
+  emptyFallbackCategoryLabel,
+  emptyTitlePrefix,
+  filterAriaLabel,
+  children,
+}: ResourcesSectionProps) {
   const prefersReducedMotion = useReducedMotion()
   const defaultFilter = categories.find((category) => category.value === "all")?.value ?? "all"
   const [activeFilter, setActiveFilter] = React.useState<ResourceFilter>(defaultFilter)
@@ -84,7 +96,7 @@ export function ResourcesSection({ categories, resources, children }: ResourcesS
       <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         {children}
         <Reveal delay={0.1}>
-          <div className="flex flex-wrap gap-2 lg:justify-end" aria-label="Filtrar recursos">
+          <div className="flex flex-wrap gap-2 lg:justify-end" aria-label={filterAriaLabel}>
             {categories.map((category) => {
               const isActive = category.value === activeFilter
 
@@ -149,10 +161,10 @@ export function ResourcesSection({ categories, resources, children }: ResourcesS
                     <SparklesIcon className="size-5" />
                   </span>
                   <CardTitle className="mt-5 font-heading text-2xl font-semibold tracking-[-0.04em] text-white">
-                    Próximamente en {activeCategory?.label ?? "esta categoría"}
+                    {emptyTitlePrefix} {activeCategory?.label ?? emptyFallbackCategoryLabel}
                   </CardTitle>
                   <CardDescription className="mt-3 max-w-2xl leading-7 text-muted-foreground">
-                    Todavía no hemos publicado recursos en esta categoría. Más contenidos muy pronto.
+                    {emptyDescription}
                   </CardDescription>
                 </CardContent>
               </Card>

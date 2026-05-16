@@ -13,7 +13,10 @@ import {
   Text,
 } from "@react-email/components"
 
+import type { Locale } from "@/i18n/routing"
+
 interface MemberRequestRejectedEmailProps {
+  locale?: Locale
   COMMUNITY_NAME?: string
   MEMBER_NAME?: string
   REQUEST_ID?: string
@@ -24,6 +27,7 @@ interface MemberRequestRejectedEmailProps {
 }
 
 export default function MemberRequestRejectedEmail({
+  locale = "es",
   COMMUNITY_NAME = "{{{COMMUNITY_NAME}}}",
   MEMBER_NAME = "{{{MEMBER_NAME}}}",
   REQUEST_ID = "{{{REQUEST_ID}}}",
@@ -32,36 +36,52 @@ export default function MemberRequestRejectedEmail({
   TEAM_EMAIL = "{{{TEAM_EMAIL}}}",
   SITE_URL = "{{{SITE_URL}}}",
 }: MemberRequestRejectedEmailProps) {
+  const isSpanish = locale === "es"
+
   return (
     <Html>
       <Head />
-      <Preview>Actualización sobre tu solicitud de membresía</Preview>
+      <Preview>
+        {isSpanish
+          ? "Actualización sobre tu solicitud de membresía"
+          : "Update on your membership request"}
+      </Preview>
       <Body style={body}>
         <Container style={container}>
           <Section style={badgeRow}>
-            <Text style={badge}>Actualización</Text>
+            <Text style={badge}>{isSpanish ? "Actualización" : "Update"}</Text>
           </Section>
-          <Heading style={heading}>Gracias por tu interés en {COMMUNITY_NAME}</Heading>
+          <Heading style={heading}>
+            {isSpanish
+              ? `Gracias por tu interés en ${COMMUNITY_NAME}`
+              : `Thanks for your interest in ${COMMUNITY_NAME}`}
+          </Heading>
           <Text style={paragraph}>
-            Hola {MEMBER_NAME}, revisamos tu solicitud y por ahora no podremos avanzar con esta postulación.
+            {isSpanish
+              ? `Hola ${MEMBER_NAME}, revisamos tu solicitud y por ahora no podremos avanzar con esta postulación.`
+              : `Hi ${MEMBER_NAME}, we reviewed your request and cannot move forward with this application right now.`}
           </Text>
 
           <Section style={panel}>
-            <Text style={detail}><strong>Solicitud:</strong> {REQUEST_ID}</Text>
-            <Text style={detail}><strong>Nota del equipo:</strong> {STATUS_NOTE}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Solicitud" : "Request"}:</strong> {REQUEST_ID}</Text>
+            <Text style={detail}><strong>{isSpanish ? "Nota del equipo" : "Team note"}:</strong> {STATUS_NOTE}</Text>
           </Section>
 
           <Button href={REAPPLY_URL} style={secondaryButton}>
-            Volver a postularme más adelante
+            {isSpanish ? "Volver a postularme más adelante" : "Apply again later"}
           </Button>
 
           <Hr style={divider} />
 
           <Text style={footer}>
-            Si necesitas más contexto, puedes escribirnos a {TEAM_EMAIL}. Seguiremos compartiendo recursos y oportunidades en {COMMUNITY_NAME}.
+            {isSpanish
+              ? `Si necesitas más contexto, puedes escribirnos a ${TEAM_EMAIL}. Seguiremos compartiendo recursos y oportunidades en ${COMMUNITY_NAME}.`
+              : `If you need more context, you can reach us at ${TEAM_EMAIL}. We will keep sharing resources and opportunities through ${COMMUNITY_NAME}.`}
           </Text>
           <Text style={footerLink}>
-            <Link href={SITE_URL} style={link}>Visitar el sitio</Link>
+            <Link href={SITE_URL} style={link}>
+              {isSpanish ? "Visitar el sitio" : "Visit the site"}
+            </Link>
           </Text>
         </Container>
       </Body>

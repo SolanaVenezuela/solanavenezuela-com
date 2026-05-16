@@ -4,6 +4,7 @@ import Image from "next/image"
 import * as React from "react"
 import { MenuIcon } from "lucide-react"
 
+import { LocaleSwitcher } from "@/components/home/locale-switcher"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Sheet,
@@ -19,9 +20,22 @@ import type { NavItem } from "@/lib/home-content"
 interface MobileNavProps {
   items: readonly NavItem[]
   joinHref: string
+  description: string
+  joinLabel: string
+  localeSwitcherLabel: string
+  navLabel: string
+  openLabel: string
 }
 
-export function MobileNav({ items, joinHref }: MobileNavProps) {
+export function MobileNav({
+  items,
+  joinHref,
+  description,
+  joinLabel,
+  localeSwitcherLabel,
+  navLabel,
+  openLabel,
+}: MobileNavProps) {
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -33,12 +47,12 @@ export function MobileNav({ items, joinHref }: MobileNavProps) {
             variant="ghost"
             size="icon-lg"
             className="size-11 rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10"
-            aria-label="Abrir navegación principal"
+            aria-label={openLabel}
           />
         }
       >
         <MenuIcon />
-        <span className="sr-only">Abrir navegación principal</span>
+        <span className="sr-only">{openLabel}</span>
       </SheetTrigger>
       <SheetContent
         side="right"
@@ -59,10 +73,13 @@ export function MobileNav({ items, joinHref }: MobileNavProps) {
             Solana Venezuela <span aria-hidden="true">🇻🇪</span>
           </SheetTitle>
           <SheetDescription className="text-left text-sm text-[var(--muted-foreground)]">
-            Acceso rápido a los recursos y comunidad.
+            {description}
           </SheetDescription>
         </SheetHeader>
-        <nav className="flex flex-col gap-2 p-4" aria-label="Navegación móvil">
+        <div className="px-4 pt-4">
+          <LocaleSwitcher ariaLabel={localeSwitcherLabel} className="w-fit" size="md" />
+        </div>
+        <nav className="flex flex-col gap-2 p-4" aria-label={navLabel}>
           {items.map((item) => (
             <a
               key={item.href}
@@ -83,7 +100,7 @@ export function MobileNav({ items, joinHref }: MobileNavProps) {
               "mt-4 h-12 rounded-full border-0 bg-[linear-gradient(135deg,var(--primary),var(--primary-strong))] px-5 text-[0.95rem] font-semibold text-[var(--primary-foreground)] shadow-[0_16px_50px_rgba(52,254,160,0.18)]"
             )}
           >
-            Únete a la comunidad
+            {joinLabel}
           </a>
         </nav>
       </SheetContent>
