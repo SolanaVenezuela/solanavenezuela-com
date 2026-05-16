@@ -194,7 +194,7 @@ export const communityMembers: CommunityMember[] = []
 const homeContentByLocale: Record<Locale, HomeContent> = {
   es: {
     siteName,
-    siteTagline: "Conectando el Talento Venezolano con Solana.",
+    siteTagline: "Conectando el Talento Venezolano con Solana",
     siteDescription:
       "Una comunidad de builders que escala el ecosistema de Solana desde Venezuela, con educación, colaboración y producto.",
     header: {
@@ -429,7 +429,7 @@ const homeContentByLocale: Record<Locale, HomeContent> = {
   },
   en: {
     siteName,
-    siteTagline: "Connecting Venezuelan Talent with Solana.",
+    siteTagline: "Connecting Venezuelan Talent with Solana",
     siteDescription:
       "A community of builders scaling the Solana ecosystem from Venezuela through education, collaboration, and product.",
     header: {
