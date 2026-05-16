@@ -4,7 +4,6 @@ import Image from "next/image"
 import * as React from "react"
 import { MenuIcon } from "lucide-react"
 
-import { LocaleSwitcher } from "@/components/home/locale-switcher"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Sheet,
@@ -22,7 +21,6 @@ interface MobileNavProps {
   joinHref: string
   description: string
   joinLabel: string
-  localeSwitcherLabel: string
   navLabel: string
   openLabel: string
 }
@@ -32,7 +30,6 @@ export function MobileNav({
   joinHref,
   description,
   joinLabel,
-  localeSwitcherLabel,
   navLabel,
   openLabel,
 }: MobileNavProps) {
@@ -76,9 +73,6 @@ export function MobileNav({
             {description}
           </SheetDescription>
         </SheetHeader>
-        <div className="px-4 pt-4">
-          <LocaleSwitcher ariaLabel={localeSwitcherLabel} className="w-fit" size="md" />
-        </div>
         <nav className="flex flex-col gap-2 p-4" aria-label={navLabel}>
           {items.map((item) => (
             <a

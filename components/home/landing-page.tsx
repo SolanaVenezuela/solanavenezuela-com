@@ -355,13 +355,16 @@ export function LandingPage() {
               >
                 {content.header.joinButtonLabel}
               </a>
-              <div className="lg:hidden">
+              <div className="flex items-center gap-2 lg:hidden">
+                <LocaleSwitcher
+                  ariaLabel={content.header.localeSwitcherLabel}
+                  size="sm"
+                />
                 <MobileNav
                   items={headerNavItems}
                   joinHref={telegramGroupUrl}
                   description={content.header.mobileDescription}
                   joinLabel={content.header.mobileJoinLabel}
-                  localeSwitcherLabel={content.header.localeSwitcherLabel}
                   navLabel={content.header.mobileNavAriaLabel}
                   openLabel={content.header.openNavLabel}
                 />
